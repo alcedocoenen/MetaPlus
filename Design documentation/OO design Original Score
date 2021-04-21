@@ -1,0 +1,47 @@
+Original score = the score as published by Stockhausen
+
+Objects:
+OriginalScore
+    has: Page_of_squares
+    has: Page_of_notes
+    operation: createSquarePage
+    operation: createNotePage
+    operation: createLayers
+    operation: mapPages
+    operation: assignBrackets
+    operation: replaceChanges
+    operation: makeScoreInstance (includes createSquarePage, createNotePage,...)
+    operation: makeIntermediateScore (based on ScoreInstance; operations: assignBrackets, replaceChanges, mapPages, createLayers)
+    operation: viewScore
+    operation: writeScore
+
+IntermediateScore
+    has: ExtendedSquare
+    operation:
+
+Square
+    has: CentralSound
+    has: Accessories
+    has: SubsidiaryNotes
+    has: Accent
+    has: Change
+    has: 
+
+ExtendedSquare
+    is: specialization of Square
+    has: Notegroup
+    has: Chordgroup
+
+
+
+Page_of_squares
+    has: Square
+    operation: readPage
+
+Page_of_notes
+    has: Notegroup
+    has: Chordgroup
+    operation: readPage
+
+Notegroup
+Chordgroup
