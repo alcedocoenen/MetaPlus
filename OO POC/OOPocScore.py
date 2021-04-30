@@ -15,7 +15,7 @@ class MetaPlus:
 def defineType(klasse):
     return str(type(klasse))[(str(type(klasse)).find("."))+1:-2]
 
-class Square(MetaPlus):
+class Square():
 
     def __init__(self, squareNumber, pageNumber):
         self.type = defineType(self)
@@ -46,18 +46,21 @@ class Square(MetaPlus):
     def __repr__(self):
         return f"\n Square nr {self.squareNumber} of Symbolpage nr {self.symbolPageNumber}"
 
-class SymbolPage(MetaPlus):
+class SymbolPage():
 
     def __init__(self, pageNumber, scoreNumber, numberOfSquares):
         self.type = defineType(self)
         self.pageNumber = pageNumber
         self.score = scoreNumber # ref to score ID
         self.arrows = []
-        self.squares = []
+        self.numberOfSquares = numberOfSquares
+        # self.squares = []
+        '''
         for i in range(numberOfSquares):
             self.thisSquare = Square(i+1, self.pageNumber)
             self.squares.append(self.thisSquare)
         self.pageChangeInstruction = []
+ 
 
     def makeSquare(self, squareNumber, pageNumber):
         newSquare = Square(squareNumber, pageNumber)
@@ -73,17 +76,59 @@ class SymbolPage(MetaPlus):
             thisSquare = Square(squareNumberOffset + i + 1, pageNumber)
             squares.append(thisSquare)
         return squares
+       '''
 
     def __repr__(self):
-        return f"\n Symbolpage nr {self.pageNumber} of score nr {self.score} and squares \n {self.squares}"
+        return f"{self.type} nr {self.pageNumber} of score nr {self.score} "
 
 
-class NotePage(MetaPlus):
+class MainNoteGroup():
+    # FIXME define the MainNotegroup class => see design
+    def __init__(self, pageNumber, romanNumber):
+        self.pageNumber = pageNumber # reference to NotePage
+        self.romanNumber = romanNumber # is the sequel number and ID of the group
 
-    def __init__(self, pnr, scnr):
+
+class Chord():
+    def __init__(self, noteGroupnumber):
+        self.number = noteGroupnumber
+        self.notes = [] # list of Note(); sequence not needed
+
+
+class Note():
+    def __init__(self, pitch, duration, accent, staccato, grace):
+        self.pitch = pitch
+        self.duration = duration
+        self.accent = accent
+        self.staccato = staccato
+        self.grace = grace
+
+    def __str__(self):
+        return f"{self.pitch}"
+
+
+class NoteGroup():
+    def __init__(self, legato, tremolo, subsNumber):
+        self.legato = legato
+        self.tremolo = tremolo
+        self.subsidiary = subsNumber # reference to SubsidiaryNoteGroup where it belongs to
+        self.notes = [] # list of Notes # FIXME should be sequence ?
+
+
+class SubsidiaryNoteGroup():
+    def __init__(self, seqNumber, pageNumber):
+        self.number = seqNumber
+        self.pageNumber = pageNumber
+
+
+
+
+class NotePage():
+
+    def __init__(self, pageNumber, scoreNumber):
         self.type = defineType(self)
-        self.PageNumber = pnr
-        self.score = scnr
+        self.PageNumber = pageNumber
+        self.score = scoreNumber
         self.subsidiaryNoteGroup = []
         self.noteGroup = []
 
@@ -96,6 +141,10 @@ class Score(MetaPlus):
     def __init__(self, nr_of_pages, nr_of_squares, idn):
         self.type = defineType(self)
         self.idn = idn
+        self.NumberOfPages = nr_of_pages
+        self.NumberOfSquares = nr_of_squares
+
+        '''
         self.symbolpages = []
         self.notepages = []
         for i in range(nr_of_pages):
@@ -103,9 +152,13 @@ class Score(MetaPlus):
             self.npage = NotePage(i+1,self.idn)
             self.symbolpages.append(self.spage)
             self.notepages.append(self.npage)
+        '''
 
-    def drukaf(self):
-        print(f"{self.symbolpages} and {self.notepages}")
+class makeScore():
+    # this class is meant to create the Score and subordinated classes
+    # FIXME find a way to read csv files as input, or JSON as alternative
+    # FIXME it should read a file and observe how many pages and squares need to be made
+    pass
 
 
 # definition data:
@@ -123,24 +176,10 @@ testScore.Name = score_name
 testScore.Author = score_author
 testScore.Version = score_version
 
+testSymbolPage = SymbolPage(5,testScore.ID,52)
+
 #display results:
 print(testScore)
-testScore.drukaf()
+print(testSymbolPage)
 
-testSquare = testScore.symbolpages[1].makeSquare(5,3)
-print(testSquare)
-
-
-'''
-TODO
-v Squares nog gereed maken
-v zorgen dat vanuit Symbolpage de square worden gemaakt
-* zorgen dat vanuit Notepage de notegroups worden gemaakt
-* nog uitzoeken hoe je data kunt inlezen (en misschien daarvan laten afhangen hoeveel...)
-* ontologiee"en toevoegen, of gewoon nummertjes houden?
-* hoe benader je objecten van binnen de superclass 
-
-* losmaken van de subclassesvan de superclass
-* aparte methodes binnen de superclass om een subclass te maken, daarmee kun je ze apart benoemen en toch koppelen
-
-'''
+# FIXME Notegroups toevoegen
