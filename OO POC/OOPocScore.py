@@ -1,5 +1,4 @@
 class MetaPlus:
-    #type = "meta"
 
     def __init__(self, author, name, nr, description, version):
         self.Author = author
@@ -12,39 +11,52 @@ class MetaPlus:
     def __str__(self):
         return f"This is type {self.type} with nr {self.ID} - {self.Name} by {self.Author} version {self.Version} "
 
+
 def defineType(klasse):
     return str(type(klasse))[(str(type(klasse)).find("."))+1:-2]
 
+
 class Square():
 
-    def __init__(self, squareNumber, pageNumber):
+    def __init__(self, squareNumber, visibleNumber, pageNumber):
         self.type = defineType(self)
+        # Square id's
         self.squareNumber = squareNumber
+        self.VisibleNumber = visibleNumber
+        # references
         self.symbolPageNumber = pageNumber
-        self.SubsidiariesNumber = 0
-        self.AccessoryMidTop = 0
-        self.TendencyDecrease = 0
+        # square features
+        self.Boldness = False
+        self.Brackets = False
+        # Central sound
+        self.CentralSound = 0
+        # Accessories
         self.AccessoryPreTop = 0
         self.AccessoryPreBottom = 0
+        self.AccessoryMidTop = 0
         self.AccessoryMidBottom = 0
         self.AccessoryPostTop = 0
-        self.TendencyIncrease = 0
-        self.FlagPlus = 0
-        self.Effect = 0
         self.AccessoryPostBottom = 0
-        self.CoordinationTiming = 0
-        self.SequenceNumber = 0
-        self.Brackets = False
-        self.CoordinationPitch = 0
+        # Subsidiary notes
+        self.SubsidiariesNumber = 0
         self.SubsidiariesSpeed = 0
         self.SubsidiariesPosition = 0
-        self.CentralSound = 0
+        # Effect and duration
+        self.Effect = 0
         self.Duration = 0
-        self.Boldness = False
-        self.VisibleNumber = 0
+        # Tendency
+        self.TendencyDecrease = 0
+        self.TendencyIncrease = 0
+        # Flags
+        self.FlagPlus = 0
         self.FlagMinus = 0
+        # coordination
+        self.CoordinationTiming = 0
+        self.CoordinationPitch = 0
+
     def __repr__(self):
         return f"\n Square nr {self.squareNumber} of Symbolpage nr {self.symbolPageNumber}"
+
 
 class SymbolPage():
 
@@ -119,8 +131,7 @@ class SubsidiaryNoteGroup():
     def __init__(self, seqNumber, pageNumber):
         self.number = seqNumber
         self.pageNumber = pageNumber
-
-
+        self.referencePitch = 0
 
 
 class NotePage():
@@ -154,11 +165,15 @@ class Score(MetaPlus):
             self.notepages.append(self.npage)
         '''
 
+
 class makeScore():
     # this class is meant to create the Score and subordinated classes
     # FIXME find a way to read csv files as input, or JSON as alternative
     # FIXME it should read a file and observe how many pages and squares need to be made
+    # create ScorePhase1 class (see OOPocPhase1.py)
     pass
+
+
 
 
 # definition data:
