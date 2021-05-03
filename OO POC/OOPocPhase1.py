@@ -1,20 +1,24 @@
-import MetaPlus from OOPocScore
+import MetaPlus
 
 
 class makeScorePhase1():
-    def __init__(self, score):
-        self.score = 0
+    def __init__(self, originalScore, numberOfLayers, mapping):
+        self.originalScore = originalScore # this is the complete score class instance inluding all subclasses (?)
+        self.numberOfLayers = numberOfLayers
+        self.mapping = mapping # a list of numbers, defines the order of Notepages
     # FIXME define the makeScorePhase1 class; is meant to create a ScorePhase1 class instance on the basis of a Score class instance
-    pass
+
 
 class ScorePhase1(MetaPlus):
     # FIXME class ScorePhase1 init to be defined
     # consists of SquareEvent
     pass
 
+
 class LayerPhase1():
     def __init__(self, layerNumber):
         self.layerNumber = layerNumber
+
 
 class SquareEvent():
 
@@ -52,10 +56,6 @@ class SquareEvent():
         # coordination
         self.CoordinationTiming = 0
         self.CoordinationPitch = 0
-
-
-
-
-    # FIXME consist of Square elements and Note elements
+        # FIXME nu nog alle Note elements. Misschien terugbrengen tot alleen Notes?
 
 

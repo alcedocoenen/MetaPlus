@@ -66,6 +66,7 @@ class SymbolPage():
         self.score = scoreNumber # ref to score ID
         self.arrows = []
         self.numberOfSquares = numberOfSquares
+        self.allSquares = []
         # self.squares = []
         '''
         for i in range(numberOfSquares):
@@ -140,8 +141,8 @@ class NotePage():
         self.type = defineType(self)
         self.PageNumber = pageNumber
         self.score = scoreNumber
-        self.subsidiaryNoteGroup = []
-        self.noteGroup = []
+        self.allSubsidiaryNoteGroups = []
+        self.allMainNoteGroups = []
 
     def __repr__(self):
         return f"Notepage nr {self.PageNumber} of score nr {self.score}"
@@ -154,6 +155,8 @@ class Score(MetaPlus):
         self.idn = idn
         self.NumberOfPages = nr_of_pages
         self.NumberOfSquares = nr_of_squares
+        self.allSymbolPages = []
+        self.allNotePages = []
 
         '''
         self.symbolpages = []
@@ -170,7 +173,6 @@ class makeScore():
     # this class is meant to create the Score and subordinated classes
     # FIXME find a way to read csv files as input, or JSON as alternative
     # FIXME it should read a file and observe how many pages and squares need to be made
-    # create ScorePhase1 class (see OOPocPhase1.py)
     pass
 
 
