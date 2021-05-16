@@ -1,3 +1,6 @@
+from Ontologies import Symbols
+import random
+
 class MetaPlus:
 
     def __init__(self, author, name, nr, description, version):
@@ -43,11 +46,13 @@ class Square():
         self.SubsidiariesPosition = 0
         # Effect and duration
         self.Effect = 0
+        self.Rest = 0
         self.Duration = 0
         # Tendency
-        self.TendencyDecrease = 0
-        self.TendencyIncrease = 0
+        self.ChangeNumber = 0
+        self.ChangeDirection = 0
         # Flags
+        self.Flags = False
         self.FlagPlus = 0
         self.FlagMinus = 0
         # coordination
@@ -56,6 +61,10 @@ class Square():
 
     def __repr__(self):
         return f"\n Square nr {self.squareNumber} of Symbolpage nr {self.symbolPageNumber}"
+
+    def print_square(self):
+        return f"\n " \
+               f"\n "
 
 
 class SymbolPage():
@@ -173,7 +182,56 @@ class makeScore():
     # this class is meant to create the Score and subordinated classes
     # FIXME find a way to read csv files as input, or JSON as alternative
     # FIXME it should read a file and observe how many pages and squares need to be made
-    pass
+    # 1. first read all squares into Square class => separate Squares.csv
+    # 2. read all notes into MainNotesgroup class => separate Notes.csv
+    # 3. read all page info into Pages and add squares / Notegroups => separate 
+    # 4. compose Score class and add Pages
+
+    def __init__(self):
+        self.numberOfSquares = 1
+
+    def createRandomSquare(self, squareNumber, visibleNumber, pageNumber):
+        sq = Square(squareNumber, visibleNumber, pageNumber)
+
+        # define all attributes
+        sq.Boldness = Symbols.Boldness[random.randrange(0,len(Symbols.Boldness))]
+        sq.Brackets = Symbols.Brackets[random.randrange(0,len(Symbols.Brackets))]
+        # Central sound
+        sq.CentralSound = Symbols.SoundColors[random.randrange(0,len(Symbols.SoundColors))]
+        # Accessories
+        sq.AccessoryPreTop = Symbols.Accessory[random.randrange(0,len(Symbols.Accessory))]
+        sq.AccessoryPreBottom = Symbols.Accessory[random.randrange(0,len(Symbols.Accessory))]
+        sq.AccessoryMidTop = Symbols.Accessory[random.randrange(0,len(Symbols.Accessory))]
+        sq.AccessoryMidBottom = Symbols.Accessory[random.randrange(0,len(Symbols.Accessory))]
+        sq.AccessoryPostTop = Symbols.Accessory[random.randrange(0,len(Symbols.Accessory))]
+        sq.AccessoryPostBottom = Symbols.Accessory[random.randrange(0,len(Symbols.Accessory))]
+        # Subsidiary notes
+        sq.SubsidiariesPosition = Symbols.SubsPosition[random.randrange(0,len(Symbols.SubsPosition))]
+        if sq.SubsidiariesPosition == "no subs":
+            sq.SubsidiariesNumber = 0
+            sq.SubsidiariesSpeed = 0
+        else:
+            sq.SubsidiariesNumber = Symbols.SubsNumber[random.randrange(0,len(Symbols.SubsNumber))]
+            sq.SubsidiariesSpeed = Symbols.SubsSpeed[random.randrange(0,len(Symbols.SubsSpeed))]
+        # Effect and duration
+        sq.Effect = Symbols.Effect[random.randrange(0,len(Symbols.Effect))]
+        sq.Rest = Symbols.Rest[random.randrange(0,len(Symbols.Rest))]
+        if sq.Rest == "no rest":
+            sq.Duration = Symbols.Duration[random.randrange(0,len(Symbols.Duration))]
+        else:
+            sq.Duration = "no duration"
+        # Tendency
+        sq.ChangeDirection = Symbols.ChangeDir[random.randrange(0,len(Symbols.ChangeDir))]
+        sq.ChangeNumber = Symbols.ChangeValue[random.randrange(0,len(Symbols.ChangeValue))]
+        # Flags
+        sq.Flags = Symbols.Flag[random.randrange(0,len(Symbols.Flag))]
+        sq.FlagPlus = Symbols.FlagPlus[random.randrange(0,len(Symbols.FlagPlus))]
+        sq.FlagMinus = Symbols.FlagMinus[random.randrange(0,len(Symbols.FlagMinus))]
+        # coordination
+        sq.CoordinationTiming = Symbols.SyncTiming[random.randrange(0,len(Symbols.SyncTiming))]
+        sq.CoordinationPitch = Symbols.SyncPitch[random.randrange(0,len(Symbols.SyncPitch))]
+
+        return sq
 
 
 
@@ -200,3 +258,8 @@ print(testScore)
 print(testSymbolPage)
 
 # FIXME Notegroups toevoegen
+
+
+testMakeScore = makeScore()
+testSq = testMakeScore.createRandomSquare(1, 1, 1)
+print(testSq)

@@ -18,14 +18,14 @@ SoundColors = tuple(SoundColorsList)
 
 # Boldness ==============================================
 BoldnessList = [1, 2]
-BoldnessList[0] = "not bold"
-BoldnessList[1] = "Bold"
+BoldnessList[0] = False
+BoldnessList[1] = True
 Boldness = tuple(BoldnessList)
 
 # Brackets ================================================
 BracketsList = [1, 2]
-BracketsList[0] = "no brackets"
-BracketsList[1] = "brackets"
+BracketsList[0] = False
+BracketsList[1] = True
 Brackets = tuple(BracketsList)
 
 # Rest ========================================================
@@ -37,6 +37,7 @@ RestList[3] = "short"
 Rest = tuple(RestList)
 
 # Duration
+# only if Rest = "no rest"
 Duration = ("no duration", "medium", "end", "long")
 
 # Effect
@@ -48,16 +49,18 @@ SyncTiming = ("no sync", "simultaneous 1", "simultaneous 2", "simultaneous 3-4",
 # SyncPitch
 SyncPitch = ("no sync", "replace 1", "replace many", "change 1", "change many", "dynamics 1", "dynamics average")
 
-# Accident
-Accident = ("empty", "short", "medium", "long", "free")
+# Accessory
+Accessory = ("empty", "short", "medium", "long", "free")
 
 # Subsidiary Position
 SubsPosition = ("no subs", "pre", "medium", "post")
 
 # Subsidiary Number
-SubsNumber = (1, 2, 3)
+# if SubsPosition = "no subs" then SubsNumber = 0
+SubsNumber = (1, 2, 3, 4, 5, 6)
 
 # Subsidiary Speed
+# if SubsPosition = "no subs" then SubsSpeed = 0
 SubsSpeed = (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16)
 
 # Change Direction
@@ -67,10 +70,12 @@ ChangeDir = ("<", ">", "><")
 ChangeValue = (1, 2, 3, 4, 5, 6, 7)
 
 # Flag or not
-Flag = (0, 1, 2)  # 0 = no flag, 1 = one flag value, 2 = two flag values
+Flag = (True, False)
 
 # Flag Value
-FlagValue = (-2, -1, 0, 1, 2)
+# if Flag = True
+FlagMinus = (0, -1, -2)
+FlagPlus = (0, 1, 2)
 
 # ==== Page attributes
 
