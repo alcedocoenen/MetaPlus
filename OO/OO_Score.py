@@ -106,15 +106,21 @@ class SymbolPage():
 
 class MainNoteGroup():
     # FIXME define the MainNotegroup class => see design
-    def __init__(self, pageNumber, romanNumber):
+    def __init__(self, pageNumber, romanNumber, chord):
         self.pageNumber = pageNumber # reference to NotePage
         self.romanNumber = romanNumber # is the sequel number and ID of the group
+        self.chord = chord
+
+    def __repr__(self):
+        return f"\npagenumber = {self.pageNumber}, romanNumber = {self.romanNumber}, \nchord = {self.chord}"
 
 
 class Chord():
     def __init__(self, noteGroupnumber):
         self.number = noteGroupnumber
         self.notes = [] # list of Note(); sequence not needed
+    def __repr__(self):
+        return f"notes = {self.notes}"
 
 
 class Note():
@@ -125,8 +131,8 @@ class Note():
         self.staccato = staccato
         self.grace = grace
 
-    def __str__(self):
-        return f"{self.pitch}"
+    def __repr__(self):
+        return f"pitch={self.pitch}, dur={self.duration}, accent={self.accent}, stacc={self.staccato}, grace={self.grace}"
 
 
 class NoteGroup():
@@ -260,6 +266,28 @@ print(testSymbolPage)
 # FIXME Notegroups toevoegen
 
 
+
+def makeTestNoteGroup():
+
+    testChord = Chord(34)
+    testNotes=[]
+    for i in range(7):
+        testNotes.append(Note(i,i,i,i,i))
+        # print(testNotes[i])
+
+    testChord.notes=testNotes
+    '''
+    for i in testChord.notes:
+        print(i)
+    print(testChord)
+    '''
+    testNg = MainNoteGroup(1,1, testChord)
+    #print(testNg)
+    return testNg
+
+
+'''
 testMakeScore = makeScore()
 testSq = testMakeScore.createRandomSquare(1, 1, 1)
 print(testSq)
+'''

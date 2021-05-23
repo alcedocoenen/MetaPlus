@@ -1,4 +1,5 @@
-import MetaPlus
+# import MetaPlus
+import OO_Score
 
 
 class makeScorePhase1():
@@ -9,7 +10,7 @@ class makeScorePhase1():
     # FIXME define the makeScorePhase1 class; is meant to create a ScorePhase1 class instance on the basis of a Score class instance
 
 
-class ScorePhase1(MetaPlus):
+class ScorePhase1(OO_Score.MetaPlus):
     # FIXME class ScorePhase1 init to be defined
     # consists of SquareEvent
     pass
@@ -19,7 +20,7 @@ class LayerPhase1():
     def __init__(self, layerNumber):
         self.layerNumber = layerNumber
 
-
+'''
 class SquareEvent():
 
     def __init__(self, layerNumber, eventnumber, scorenr, originalSymbolPage, originalSquarenr, originalNotePage):
@@ -58,4 +59,33 @@ class SquareEvent():
         self.CoordinationPitch = 0
         # FIXME nu nog alle Note elements. Misschien terugbrengen tot alleen Notes?
 
+'''
 
+class SquareEvent():
+
+    def __init__(self, square, notegroup, subsgroup):
+        self.square = square
+        self.notegroup = notegroup
+        self.subsgroup = subsgroup
+
+    def displayAll(self):
+        return f"square = {self.square}, \nnotegroup = {self.notegroup}, \nsubsgroup = {self.subsgroup}"
+
+    def makeNoteSequence(self):
+        # 1. pre-accessories + subs
+        # 2. central-sound = chord + mid-accessories + subs
+        # 3. post-accessories + subs
+
+testScore = OO_Score.makeScore()
+print("testScore gemaakt")
+testSq = testScore.createRandomSquare(1,1,1)
+print("testSquare gemaakt")
+
+testNg = OO_Score.makeTestNoteGroup()
+print("testNotegroup gemaakt")
+
+testSb = []
+testSqEvent = SquareEvent(testSq,testNg,testSb)
+print("testSqEvent gemaakt")
+print(testSq)
+print(testSqEvent.displayAll())
