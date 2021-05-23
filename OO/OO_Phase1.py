@@ -71,10 +71,66 @@ class SquareEvent():
     def displayAll(self):
         return f"square = {self.square}, \nnotegroup = {self.notegroup}, \nsubsgroup = {self.subsgroup}"
 
-    def makeNoteSequence(self):
+    def defineType(self):
+        # afleiden van de constellatie van accessories en centralsound
+        # see instructions nr 6
+        # type 1 = A -> C = (A-pre, C)
+        # type 2 = AC   = (A-mid, C) # AC means A and C at the same time
+        # type 3 = C -> A = (C, A-pos)
+        # type 4 = A -> C -> A = (A-pre, C, A-pos)
+        # type 5 = AC -> A = (A-mid, C, A-pos)
+        # type 6 = A -> AC = (A-pre, A-mid, C)
+        # type 7 = A -> AC -> A = (A-pre, A-mid, C, A-pos)
+        w, h = 3,3
+        a = [[0 for x in range(w)] for y in range(h)]
+        a[0][0] = self.square.AccessoryPreTop
+        a[0][1] = self.square.AccessoryPreBottom
+        a[1][0] = self.square.AccessoryMidTop
+        a[1][1] = self.square.AccessoryMidBottom
+        a[2][0] = self.square.AccessoryPostTop
+        a[2][1] = self.square.AccessoryPostBottom
+
+        testarray = []
+        for i in a:
+            if (i[0] != "empty" or i[1] != "empty"):
+                i[2] = True
+            else:
+                i[2] = False
+                testarray.append(i[2])
+
+        if (testarray == [True, False, False]):
+            return 1
+        elif (testarray == [False, True, False]):
+            return 2
+        elif (testarray == [False, False, True]):
+            return 3
+        elif (testarray == [True, False, True]):
+            return 4
+        elif (testarray == [False,True,True]):
+            return 5
+        elif (testarray == [True,True,False]):
+            return 6
+        elif (testarray == [True,True,True]):
+            return 7
+
+
+
+def makeEventSequence(self):
         # 1. pre-accessories + subs
         # 2. central-sound = chord + mid-accessories + subs
         # 3. post-accessories + subs
+        microSequence1 = []
+        microSequence2 = []
+        microSequence3 = []
+
+        # 1. pre-accessories
+        microSequence1.append(self.square.AccessoryPreTop)
+        microSequence1.append(self.square.AccessoryPreBottom)
+        # subs notes, af te leiden van subsnumber
+
+        # 2. central-sound
+        microSequence2.append()
+
 
 testScore = OO_Score.makeScore()
 print("testScore gemaakt")
@@ -89,3 +145,5 @@ testSqEvent = SquareEvent(testSq,testNg,testSb)
 print("testSqEvent gemaakt")
 print(testSq)
 print(testSqEvent.displayAll())
+
+# FIXME defineType gaan testen

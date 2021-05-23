@@ -3,13 +3,12 @@ import turtle
 s = turtle.getscreen()
 t = turtle.Turtle()
 turtle.title("Plus-Minus Square")
-
+speed = 0
+t.speed(speed)
 t.home()
-# offset = 100
-# t.goto(offset, offset)
 
 # draw square
-def draw_square(side, offset=(0,0)):
+def draw_square(side, t, offset=(0,0)):
     # side = 200
     t.goto(offset)
     t.penup()
@@ -28,16 +27,18 @@ def draw_square(side, offset=(0,0)):
 # wait
 
 # circle in the middle
-def draw_circle(radius, side, offset=(0,0)):
+def draw_circle(radius, side, t, offset=(0,0)):
     # diameter = 30
+    t.speed(speed)
     t.penup()
     t.goto(offset)
     t.goto(offset[0]+side/2, offset[1]+side/2-radius)
     t.pendown()
     t.circle(radius)
+    t.penup()
     t.goto(offset)
 
-def draw_centralsound1(radius, side, offset=(0,0)):
+def draw_centralsound1(radius, side, t, offset=(0,0)):
     # draw_circle(radius,side)
     t.penup()
     t.goto(offset)
@@ -47,7 +48,7 @@ def draw_centralsound1(radius, side, offset=(0,0)):
     t.penup()
     t.goto(offset)
 
-def draw_dashedline(len):
+def draw_dashedline(len, t):
     # dash = len/6
     n = int(len/8)
     l1 = 5
@@ -59,33 +60,33 @@ def draw_dashedline(len):
         t.pendown()
     t.forward(l2)
 
-def draw_centralsound2(radius, side, offset=(0,0)):
+def draw_centralsound2(radius, side, t, offset=(0,0)):
     # draw_circle(radius,side)
     t.penup()
     t.goto(offset)
     t.goto(offset[0] + (side/2)-(side/4), offset[1] + side/2)
     t.pendown()
-    draw_dashedline(side/2)
+    draw_dashedline(side/2, t)
     t.penup()
     t.goto(offset)
 
-def draw_centralsound4(radius, side, offset=(0,0)):
+def draw_centralsound4(radius, side, t, offset=(0,0)):
     len_diagonal = (2 * (radius ** 2)) ** 0.5
     t.penup()
     t.goto(offset)
     t.goto(offset[0] + side/2-radius, offset[1] + side/2-radius)
     t.pendown()
     t.lt(45)
-    draw_dashedline(2*len_diagonal)
+    draw_dashedline(2*len_diagonal, t)
     t.penup()
     t.goto(offset[0] + side / 2 - radius, offset[1] + side / 2 + radius)
     t.rt(90)
     t.pendown()
-    draw_dashedline(2 * len_diagonal)
+    draw_dashedline(2 * len_diagonal, t)
     t.penup()
     t.goto(offset)
 
-def draw_centralsound3(radius, side, offset=(0,0)):
+def draw_centralsound3(radius, side, t, offset=(0,0)):
     len_diagonal = (2 * (radius ** 2)) ** 0.5
     t.penup()
     t.goto(offset)
@@ -101,31 +102,32 @@ def draw_centralsound3(radius, side, offset=(0,0)):
     t.penup()
     t.goto(offset)
 
-def draw_centralsound5(radius, side, offset = (0,0)):
+def draw_centralsound5(radius, side, t, offset = (0,0)):
     # draw_circle(radius,side, offset)
-    draw_centralsound1(radius,side, offset)
-    draw_centralsound3(radius,side, offset)
+    draw_centralsound1(radius,side, t, offset)
+    draw_centralsound3(radius,side, t, offset)
 
-def draw_centralsound6(radius, side, offset=(0,0)):
+def draw_centralsound6(radius, side, t, offset=(0,0)):
     # draw_circle(radius, side, offset)
-    draw_centralsound2(radius,side, offset)
-    draw_centralsound4(radius,side, offset)
+    draw_centralsound2(radius,side, t, offset)
+    draw_centralsound4(radius,side, t, offset)
 
 
-def draw_centralsound(radius, side, type, offset=(0,0)):
-    draw_circle(radius, side, offset)
+def draw_centralsound(radius, side, type, t, offset=(0,0)):
+    #draw_circle(radius, side, offset)
+    t.speed(speed)
     if type == 1:
-        draw_centralsound1(radius, side, offset)
+        draw_centralsound1(radius, side, t, offset)
     elif type == 2:
-        draw_centralsound2(radius, side, offset)
+        draw_centralsound2(radius, side, t, offset)
     elif type == 3:
-        draw_centralsound3(radius, side, offset)
+        draw_centralsound3(radius, side, t, offset)
     elif type == 4:
-        draw_centralsound4(radius, side, offset)
+        draw_centralsound4(radius, side, t, offset)
     elif type == 5:
-        draw_centralsound5(radius, side, offset)
+        draw_centralsound5(radius, side, t, offset)
     elif type == 6:
-        draw_centralsound6(radius, side, offset)
+        draw_centralsound6(radius, side, t, offset)
 
 
     # type 1 = ononderbroeken horizontale lijn door de cirkel
@@ -138,7 +140,7 @@ def draw_centralsound(radius, side, type, offset=(0,0)):
 
 
 
-def draw_number(side, sq_number, offset=(0,0)):
+def draw_number(side, sq_number, t, offset=(0,0)):
     t.penup()
     # bij side = 200
     # x = 20, y = 165, r = 15
@@ -154,3 +156,29 @@ def draw_number(side, sq_number, offset=(0,0)):
     t.write(sq_number, False, align="center", font=("Arial", fontsize, "bold"))
     t.penup()
     t.goto(offset)
+
+def makeCompleteSquare(side, t, type, sq_number, offset=(0,0)):
+    radius = side/8
+    t.home()
+    t.penup()
+    draw_square(side, t, offset)
+    draw_circle(radius, side, t, offset)
+    draw_centralsound(radius,side, type, t, offset)
+    draw_number(side, sq_number, t, offset)
+    t.home()
+
+makeCompleteSquare(200, t, 1, 12, (-400,300))
+makeCompleteSquare(200, t, 2, 13, (-200,300))
+makeCompleteSquare(200, t, 3, 14, (0, 300))
+makeCompleteSquare(200, t, 4, 15, (200,300))
+makeCompleteSquare(200, t, 5, 16, (400,300))
+makeCompleteSquare(200, t, 6, 17, (-400,100))
+makeCompleteSquare(200, t, 7, 18, (-200,100))
+makeCompleteSquare(200, t, 1, 19, (0,100))
+makeCompleteSquare(200, t, 2, 20, (200,100))
+makeCompleteSquare(200, t, 3, 21, (400,100))
+
+
+
+
+
