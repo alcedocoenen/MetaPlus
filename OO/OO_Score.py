@@ -1,5 +1,6 @@
 from Ontologies import Symbols
 import random
+import mido
 
 class MetaPlus:
 
@@ -105,7 +106,6 @@ class SymbolPage():
 
 
 class MainNoteGroup():
-    # FIXME define the MainNotegroup class => see design
     def __init__(self, pageNumber, romanNumber, chord):
         self.pageNumber = pageNumber # reference to NotePage
         self.romanNumber = romanNumber # is the sequel number and ID of the group
@@ -116,9 +116,9 @@ class MainNoteGroup():
 
 
 class Chord():
-    def __init__(self, noteGroupnumber):
+    def __init__(self, noteGroupnumber, notes):
         self.number = noteGroupnumber
-        self.notes = [] # list of Note(); sequence not needed
+        self.notes = notes # list of Note(); sequence not needed
     def __repr__(self):
         return f"notes = {self.notes}"
 
@@ -133,6 +133,18 @@ class Note():
 
     def __repr__(self):
         return f"pitch={self.pitch}, dur={self.duration}, accent={self.accent}, stacc={self.staccato}, grace={self.grace}"
+
+    def makeJson(self):
+        return f"{{\'pitch\': {self.pitch},\n \'duration\': {self.duration},\n \'accemt\': {self.accent},\n \'staccato\': {self.staccato},\n \'grace\': {self.grace} }}"
+
+    def play(self):
+        portlist = mido.get_output_names()
+        portname = portlist[0]
+        port = mido.open_output(portname)
+        msg1 = mido.Message('note_on', note = self.pitch, time=0)
+        msg2 = mido.Message('note_off', note = self.pitch, time=self.duration)
+        port.send(msg1)
+        port.send(msg2)
 
 
 class NoteGroup():

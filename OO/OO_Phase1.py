@@ -96,7 +96,7 @@ class SquareEvent():
                 i[2] = True
             else:
                 i[2] = False
-                testarray.append(i[2])
+            testarray.append(i[2])
 
         if (testarray == [True, False, False]):
             return 1
@@ -136,6 +136,13 @@ testScore = OO_Score.makeScore()
 print("testScore gemaakt")
 testSq = testScore.createRandomSquare(1,1,1)
 print("testSquare gemaakt")
+print(testSq.AccessoryPreTop)
+print(testSq.AccessoryPreBottom)
+print(testSq.AccessoryMidTop)
+print(testSq.AccessoryMidBottom)
+print(testSq.AccessoryPostTop)
+print(testSq.AccessoryPostBottom)
+
 
 testNg = OO_Score.makeTestNoteGroup()
 print("testNotegroup gemaakt")
@@ -145,5 +152,5 @@ testSqEvent = SquareEvent(testSq,testNg,testSb)
 print("testSqEvent gemaakt")
 print(testSq)
 print(testSqEvent.displayAll())
+print(f"type = {testSqEvent.defineType()}")
 
-# FIXME defineType gaan testen
