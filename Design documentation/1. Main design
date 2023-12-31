@@ -1,0 +1,39 @@
+Main design of Plus-Minus
+
+1. load plusminus score
+1a. load squarepages => from csv to dict
+1b. load notepages => from csv to dict
+
+2. define setup
+2a. number of layers
+per layer:
+    2b. order of pages per layer
+    2c. mapping with notepages per layer
+config: dict with number of layers, plus for each layer an order of squarepages (list) and order of notepages (list).
+main function: ComposeLayers
+result: large dict of all squares, divided in layers
+
+
+3. re-arrange squares
+3a. replace increase/decrease
+3b. re-arrange squares with brackets
+
+4. define type repetitions with flag values
+
+5. define change: pitch or duration
+
+
+=============================
+see https://dev.azure.com/alcedocoenen2/PythonExperimentPlusMinus/_wiki/wikis/PythonExperimentPlusMinus.wiki/11/3.1-Plus-Minus-Functions
+
+
+1. Basic Score Setup
+DefineNumberOfLayers: Number of layers has to be defined.
+MapPages: For each layer, the mapping and order of pages has to be defined
+BracketFilling: The brackets have to be filled with the right number of squares
+ChangeSubstitutions: The increase and decrease signs have to be replaced according to the page instructions.
+Function	input	output
+DefineNumberOfLayers	max (int)	numberOfLogicalLayer (int)
+MapPages	max (int)	logicalLayerList (list of tuples)
+BracketFilling	OriginalSymbolPage	LogicalSymbolPage
+ChangeSubstitutions	OriginalSymbolPage	LogicalSymbolPage
