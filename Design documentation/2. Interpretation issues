@@ -1,8 +1,0 @@
-
-Flags.
-- flags are attached to types
-- therefore types need to be generated asap (in Phase 1) before flags are interpreted (Phase 2)
-- no flag =
-    a) continue with the number of repetitions of previous occurrence of the type. But... An explicit 0 means this, so it would make no difference with 0
-    b) keep adding, according to the last flag value
-- plus and minus: what needs to be done?
