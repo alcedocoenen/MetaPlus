@@ -8,6 +8,7 @@ import pickle
 import PlusMinusIndexes as pm_index
 
 datapath = '/Users/alcedocoenen/Documents/Plus-Minus/Python/MetaPlus/MetaPlus/MVP01/1. LOAD/1.1 DATA/'
+filenamebase = 'PMDS'
 
 def open_plusminus_squares(filename):
     # valid for all formats between 0 and ...

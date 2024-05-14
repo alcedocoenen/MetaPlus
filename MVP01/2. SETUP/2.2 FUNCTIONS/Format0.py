@@ -107,11 +107,11 @@ def convert_stage0a_to_stage0b(stage0a_squares, choice_tuple_list, version):
 
 #number_of_layers = len(layer_config.keys())
 
-def convert_stage0b_to_stage0c(stage0b_squares, config, version):
+def convert_stage0b_to_stage0c(stage0b_squares, orderlist):
     # stage0c is having the pages in the chosen order
     stage0c_squares = []
 
-    # TODO first get each page from stage0b in a separate list variable. Valid for all layers.
+    # TODO first get each page from stage0b in a separate list variable.
     page1 = []
     page2 = []
     page3 = []
@@ -121,63 +121,66 @@ def convert_stage0b_to_stage0c(stage0b_squares, config, version):
     page7 = []
     list_of_pages = [page1, page2, page3, page4, page5, page6, page7]
 
+    #read the squares from stage0b, and attribute each square to the page-list according to the orderlist.
+
+    index_pagenumber = pm_index.square_format0_index_dict["pagenumber"]
+
     for square in stage0b_squares:
-        index_pagenumber = pm_index.square_format0_index_dict["pagenumber"]
         pagenr = int(square[index_pagenumber])
-        if pagenr == 1:
+
+        if pagenr == orderlist[0]:
             page1.append(square)
-        elif pagenr == 2:
+        elif pagenr == orderlist[1]:
             page2.append(square)
-        elif pagenr == 3:
+        elif pagenr == orderlist[2]:
             page3.append(square)
 
-        elif pagenr == 4:
+        elif pagenr == orderlist[3]:
             page4.append(square)
 
-        elif pagenr == 5:
+        elif pagenr == orderlist[4]:
             page5.append(square)
 
-        elif pagenr == 6:
+        elif pagenr == orderlist[5]:
             page6.append(square)
 
-        elif pagenr == 7:
+        elif pagenr == orderlist[6]:
             page7.append(square)
 
 
-        # TODO read the config and define the order
+    # the list_of_pages is now in the right order.
+    # the list_of_pages has to be brought back to one long list
 
-
-
-        # TODO then change the order according to the config spec
-    #
+    for page in list_of_pages:
+        for square in page:
+            stage0c_squares.append(square)
 
     return stage0c_squares
 
 
-def convert_stage0c_to_stage0d(stage0c_squares, config, version):
-    # in stage0d the brackets are substituted (if that makes sense in this stadium ???)
-    stage0d_squares = []
-    return stage0d_squares
 
-def define_filename(filename, ext, version):
+
+def define_filename(filename, ext, version, layer):
     if not(version):
         version = time.strftime("%Y%m%d-%H%M%S")
-    file_result = rws.datapath + filename + '_' + version + '.' + ext
+    file_result = rws.datapath + filename + '_V' + version + '_L' + layer + '.' + ext
     return file_result
 
 
 # ====== making the conversions in files =======
 
-def make_format_0a(config, version):
+def make_format_0a(rawlist, version, layer):
     # this functions converts the format 0 file into a format 0a file with restitution of the 4-tendency values
     # this needs to be done for each layer separately
     #allsquares = rws.get_all_squares_as_rawlist()
     rws.write_log("writing format 0a", version)
-
-    file_to_open = rws.datapath+'PlusMinusDataSquaresAsRawList'
+    fname = rawlist
+    file_to_open = rws.datapath+fname
     allsquares = rws.open_plusminus_squares_rawlist(file_to_open,",")
+    config = cf.getconfig0()
     result = convert_stage0_to_stage0a(allsquares, version, config)
-    file_to = define_filename('PlusMinusDataSquaresFormat0a','csv', version)
+    fname = rws.filenamebase + '_Format0a'
+    file_to = define_filename(fname,'csv', version, layer)
     rws.write_raw_list(file_to, result)
 
     rws.write_log(config, version)
@@ -185,15 +188,16 @@ def make_format_0a(config, version):
     rws.write_log("end of conversion stage0 => stage0a", version)
     return "format 0a written"
 
-def make_format_0b(version):
+def make_format_0b(version, layer):
     # this function coverts the format 0a file into a format 0b file with replacement of all tendency values according to page instructions
     rws.write_log("writing format 0b", version)
-
-    file_to_open = rws.datapath + 'PlusMinusDataSquaresFormat0a_' + version + '.csv'
+    fname = rws.filenamebase + '_Format0a'
+    file_to_open = define_filename(fname,'csv', version, layer)
     allsquares = rws.open_plusminus_squares_rawlist(file_to_open,",")
     config =  cf.get_config2() # refer to configurations file for a valid tuple list
     result = convert_stage0a_to_stage0b(allsquares, config, version)
-    file_to_write = define_filename('PlusMinusDataSquaresFormat0b','csv', version)
+    fname = rws.filenamebase + '_Format0b'
+    file_to_write = define_filename(fname,'csv', version, layer)
     rws.write_raw_list(file_to_write, result)
 
     rws.write_log(config, version)
@@ -201,40 +205,38 @@ def make_format_0b(version):
     rws.write_log("end of conversion stage0a => stage0b", version)
     return " format 0b written"
 
-def make_format_0c(config, version):
+def make_format_0c(version, layer):
     rws.write_log("writing format 0c", version)
-
-    file_to_open = rws.datapath + 'PlusMinusDataSquaresFormat0b_' + version + '.csv'
+    fname = rws.filenamebase + '_Format0b'
+    file_to_open = define_filename(fname,'csv', version, layer)
     allsquares = rws.open_plusminus_squares_rawlist(file_to_open,",")
     #config =  cf.get_config1()
-    result = convert_stage0b_to_stage0c(allsquares, config, version)
-    file_to_write = define_filename('PlusMinusDataSquaresFormat0c','csv', version)
+    orderlist = cf.get_order_of_squarepages(int(layer))
+    result = convert_stage0b_to_stage0c(allsquares, orderlist)
+    fname = rws.filenamebase + '_Format0c'
+    file_to_write = define_filename(fname,'csv', version, layer)
     rws.write_raw_list(file_to_write, result)
 
-    rws.write_log(config, version)
+    rws.write_log(orderlist, version)
     rws.write_log(file_to_write, version)
     rws.write_log("end of conversion stage0b => stage0c", version)
 
     return "format 0c written"
 
-def make_format_0d(config, version):
-    rws.write_log("writing format 0d", version)
-    file_to_open = rws.datapath + 'PlusMinusDataSquaresFormat0c_' + version + '.csv'
-    allsquares = rws.open_plusminus_squares_rawlist(file_to_open,",")
-    result = convert_stage0c_to_stage0d(allsquares, config, version)
-    file_to_write = define_filename('PlusMinusDataSquaresFormat0d','csv', version)
-    rws.write_raw_list(file_to_write, result)
-
-    rws.write_log(config, version)
-    rws.write_log(file_to_write, version)
-    rws.write_log("end of conversion stage0c => stage0d", version)
-
-    return "format 0d written"
 
 
 # ========= EXECUTION ===========
-make_format_0a(cf.config0a_b, "0001")
-make_format_0b("0001")
-make_format_0c(cf.get_config1(), "0001")
+# some global variables, to be defined in a config
 
+def make_them_all(version):
+    #for each layer
+    # get nr of layers first
+    nr_of_layers = cf.get_number_of_layers()
+    for i in range(nr_of_layers):
+        layer = str(i+1)
+        make_format_0a('PlusMinusDataSquaresAsRawList',version, layer)
+        make_format_0b(version,layer)
+        make_format_0c(version, layer)
+
+make_them_all('001')
 # === divers tests

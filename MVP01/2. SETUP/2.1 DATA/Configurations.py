@@ -16,7 +16,8 @@ config0a_b = "random per case"
 config0a_c = "increase"
 config0a_d = "decrease"
 
-
+def getconfig0():
+    return config0a_b
 
 #=============== CONFIG 1 =====================
 # Config1 is about the number of layers and the order or pages.
@@ -29,7 +30,7 @@ config1a = {
                       },
                 2:
                      {"layernr" : 2,
-                      "order of squarepages": [3, 5, 2, 4, 1, 6, 7],
+                      "order of squarepages": [6, 7, 2, 4, 1, 3, 5],
                       "order of notepages": [4, 5, 6, 7, 3, 2, 1]
                       }
 }
@@ -60,9 +61,23 @@ config1c = {
                       }
 }
 
+# TODO define a function for defining the config1 dynamically (random)
 # here is the main variable. Change this when choosing another configuration
 def get_config1():
     return config1a
+def get_order_of_squarepages(layer):
+    return get_config1()[layer]['order of squarepages']
+
+def get_order_of_notepages(layer):
+    return get_config1()[layer]['order of notepages']
+
+
+def get_number_of_layers():
+    return len(get_config1())
+
+#test
+#print(get_order_of_squarepages(1))
+#print(get_order_of_notepages(1))
 
 
 #=============== CONFIG 2 =====================
