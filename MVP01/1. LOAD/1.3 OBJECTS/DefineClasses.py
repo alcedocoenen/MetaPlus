@@ -50,7 +50,35 @@ def defineType(klasse):
 
 class Square():
 
-    def __init__(self, squareNumber, visibleNumber, pageNumber):
+    # input:
+    """
+    "pagenumber": 0,
+    "sequencenr": 1,
+    "real_number": 2,
+    "boldness": 3,
+    "brackets": 4,
+    "centralsound": 5,
+    "duration": 6,
+    "rest": 7,
+    "pre-bot": 8,
+    "pre-top": 9,
+    "mid-bot": 10,
+    "mid-top": 11,
+    "post-bot": 12,
+    "post-top":13,
+    "neben_position": 14,
+    "neben-number": 15,
+    "neben-speed": 16,
+    "flag-top": 17,
+    "flag-bottom": 18,
+    "coord-timing": 19,
+    "coord-pitch": 20,
+    "increase": 21,
+    "decrease": 22,
+    "effect": 23,
+    "type": 24
+    """
+    def __init__(self, pageNumber, squareNumber, visibleNumber, boldness, brackets, centralsound, duration, rest, pre_bot, pre_top, mid_bot, mid_top, post_bot, post_top, neben_position, neben_number, neben_speed, flag_top, flag_bottom, coord_timing, coord_pitch, increase, decrease, effect, soundtype):
         self.type = defineType(self)
         # Square id's
         self.squareNumber = squareNumber
@@ -58,36 +86,36 @@ class Square():
         # references
         self.symbolPageNumber = pageNumber
         # square features
-        self.Boldness = False
-        self.Brackets = False
+        self.Boldness = boldness
+        self.Brackets = brackets
         # Central sound
-        self.CentralSound = CentralSoundColor.FREE
-        self.Soundtype = 0
+        self.CentralSound = centralsound
+        self.Soundtype = soundtype
         # Accessories
-        self.AccessoryPreTop = Accident.NO_ACC
-        self.AccessoryPreBottom = Accident.NO_ACC
-        self.AccessoryMidTop = Accident.NO_ACC
-        self.AccessoryMidBottom = Accident.NO_ACC
-        self.AccessoryPostTop = Accident.NO_ACC
-        self.AccessoryPostBottom = Accident.NO_ACC
+        self.AccessoryPreTop = pre_top
+        self.AccessoryPreBottom = pre_bot
+        self.AccessoryMidTop = mid_top
+        self.AccessoryMidBottom = mid_bot
+        self.AccessoryPostTop = post_top
+        self.AccessoryPostBottom = post_bot
         # Subsidiary notes
-        self.SubsidiariesNumber = 0
-        self.SubsidiariesSpeed = 0
-        self.SubsidiariesPosition = 0
+        self.SubsidiariesNumber = neben_number
+        self.SubsidiariesSpeed = neben_speed
+        self.SubsidiariesPosition = neben_position
         # Effect and duration
-        self.Effect = Effect.NO_EFFECT
-        self.Rest = Rest.NO_REST
-        self.Duration = Duration.NO_DURATION
+        self.Effect = effect
+        self.Rest = rest
+        self.Duration = duration
         # Tendency
-        self.ChangeNumber = 0
-        self.ChangeDirection = Change.NO_CHANGE
+        self.Increase = increase
+        self.Decrease = decrease
         # Flags
-        self.Flags = False
-        self.FlagPlus = 0
-        self.FlagMinus = 0
+        self.FlagTop = flag_top
+        self.FlagBottom = flag_bottom
         # coordination
-        self.CoordinationTiming = 0
-        self.CoordinationPitch = 0
+        self.CoordinationTiming = coord_timing
+        self.CoordinationPitch = coord_pitch
+
         # connection with notepages
         self.NotePageNumber = 0
         self.Chord_nr = 0 # should be the same as the Soundtype
