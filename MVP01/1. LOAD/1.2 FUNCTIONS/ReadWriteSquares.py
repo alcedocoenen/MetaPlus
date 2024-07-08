@@ -7,7 +7,11 @@ import csv
 import pickle
 import PlusMinusIndexes as pm_index
 
-datapath = '/Users/alcedocoenen/Documents/Plus-Minus/Python/MetaPlus/MetaPlus/MVP01/1. LOAD/1.1 DATA/'
+path_base = '/Users/alcedocoenen/Documents/Plus-Minus/Python/MetaPlus/MetaPlus/MVP01'
+datapath = path_base + '/0. DATA/0.1 SOURCES/'
+targetpath = path_base + '/0. DATA/0.2 RESULTS/'
+logpath = path_base + '/0. DATA/0.3 LOGS/'
+
 filenamebase = 'PMDS'
 
 def open_plusminus_squares(filename):
@@ -44,7 +48,7 @@ def write_raw_list(filename, rawlist):
 #   'boldness': '1',
 #   'Brackets': '0',
 #   'Centralsound': {'centralsound': '4', 'type': '7'},
-#   'Dur_rest': {'durartion': '0', 'rest': '1'},
+#   'Dur_rest': {'duration': '0', 'rest': '1'},
 #   'Accidents': {'pre-bot': '2', 'pre-top': '0', 'mid-bot': '3', 'mid-top': '2', 'post_bot': '3', 'post_top': '0'},
 #   'Nebennoten': {'position': '0', 'number': '0', 'speed': '0'},
 #   'Flag': {'top': '-3', 'bottom': '0'},
@@ -191,7 +195,7 @@ def print_list_of_dict(list_of_dict):
 #   'boldness': '1',
 #   'Brackets': '0',
 #   'Centralsound': {'centralsound': '4', 'type': '7'},
-#   'Dur_rest': {'durartion': '0', 'rest': '1'},
+#   'Dur_rest': {'duration': '0', 'rest': '1'},
 #   'Accidents': {'pre-bot': '2', 'pre-top': '0', 'mid-bot': '3', 'mid-top': '2', 'post_bot': '3', 'post_top': '0'},
 #   'Nebennoten': {'position': '0', 'number': '0', 'speed': '0'},
 #   'Flag': {'top': '-3', 'bottom': '0'},
@@ -201,6 +205,7 @@ def print_list_of_dict(list_of_dict):
 #
 # total object format  =
 #   (
+
 
 
 def convert_to_structured_dict_format0(content):
@@ -216,7 +221,7 @@ def convert_to_structured_dict_format0(content):
         square_dict = {}
         nr_dict = {}
         acc_dict = {}
-        sound_dict = {}
+        event_dict = {}
         durrest_dict = {}
         nebennoten_dict = {}
         flag_dict = {}
@@ -237,30 +242,38 @@ def convert_to_structured_dict_format0(content):
             current_pagenr_i = pagenr_i
         # in alle andere gevallen dus niets doen met de pagenr, maar alle squares verzamelen
 
+
+        # IDs
+        # dict structure:
+        #      {'Numbers': {'sqnr_seq': '1', 'sqnr': '1', 'Boldness': '1', 'Brackets': '0'}
+        # IDS - get data
         sqnr_seq = square["Square.SequenceNumber"]
         sqnr = square["Square.Number"]
+        bold = square["Boldness"]
+        brackets = square["Brackets"]
+        # IDs - make dict structure
         nr_dict["sqnr_seq"] = sqnr_seq
         nr_dict["sqnr"] = sqnr
-        square_dict["Numbers"] = nr_dict
+        nr_dict["Boldness"] = bold
+        nr_dict["Brackets"] = brackets
+        # IDs - put in square dict
+        square_dict["IDs"] = nr_dict
 
-        bold = square["Boldness"]
-        square_dict["Boldness"] = bold
+        # EVENT
+        # dict structure:
+        #       {'Event':
+        #               {'type': '3', 'centralsound': '6',
+        #                                           {'Accidents': {'pre-bot': '0', 'pre-top': '0', 'mid-bot': '0', 'mid-top': '0', 'post_bot': '2', 'post_top': '0'}
+        #                                           {'Flag': {'top': '-1', 'bottom': '0'},
+        #                                           {'Nebennoten': {'position': '3', 'number': '5', 'speed': '3'}},
+        #                {'Dur_rest': {'duration': '0', 'rest': '2'}},
+        #                {'Effect': '6'}
+        #        }
 
-        brackets = square["Brackets"]
-        square_dict["Brackets"] = brackets
-
+        # EVENT - basis
         centralsound = square["Centralsound"]
         soundtype = square["Type"]
-        sound_dict["centralsound"] = centralsound
-        sound_dict["type"] = soundtype
-        square_dict["Centralsound"] = sound_dict
-
-        duration = square["Duration"]
-        rest = square["Rest"]
-        durrest_dict["durartion"] = duration
-        durrest_dict["rest"] = rest
-        square_dict["Dur_rest"] = durrest_dict
-
+        # EVENT - accidents
         acc1 = square["A-pre-bot"]
         acc2 = square["A-pre-top"]
         acc3 = square["A-cen-bot"]
@@ -273,21 +286,35 @@ def convert_to_structured_dict_format0(content):
         acc_dict["mid-top"] = acc4
         acc_dict["post_bot"] = acc5
         acc_dict["post_top"] = acc6
-        square_dict["Accidents"] = acc_dict
-
+        # EVENT - flags
+        flag_top = square["Flag.Top"]
+        flag_bot = square["Flag.Bottom"]
+        flag_dict["top"] = flag_top
+        flag_dict["bottom"] = flag_bot
+        # EVENT - Nebennoten
         n_pos = square["Nebennoten.Position"]
         n_num = square["Nebennoten.Number"]
         n_speed = square["Nebennoten.Speed"]
         nebennoten_dict["position"] = n_pos
         nebennoten_dict["number"] = n_num
         nebennoten_dict["speed"] = n_speed
-        square_dict["Nebennoten"] = nebennoten_dict
-
-        flag_top = square["Flag.Top"]
-        flag_bot = square["Flag.Bottom"]
-        flag_dict["top"] = flag_top
-        flag_dict["bottom"] = flag_bot
-        square_dict["Flag"] = flag_dict
+        #EVENT - duration
+        duration = square["Duration"]
+        rest = square["Rest"]
+        durrest_dict["duration"] = duration
+        durrest_dict["rest"] = rest
+        # EVENT - effectr
+        effect = square["Effect"]
+        # EVENT - collect all previous items
+        event_dict["centralsound"] = centralsound
+        event_dict["type"] = soundtype
+        event_dict["Accidents"] = acc_dict
+        event_dict["Flag"] = flag_dict
+        event_dict["Nebennoten"] = nebennoten_dict
+        event_dict["Dur_rest"] = durrest_dict
+        event_dict["Effect"] = effect
+        # EVENT - put it in main structure of the square
+        square_dict["Event"] = event_dict
 
         coord_time = square["Coordination.Timing"]
         coord_pitch = square["Coordination.Pitch"]
@@ -301,8 +328,6 @@ def convert_to_structured_dict_format0(content):
         tendency_dict["decrease"] = tendency_decr
         square_dict["Tendencies"] = tendency_dict
 
-        effect = square["Effect"]
-        square_dict["Effect"] = effect
 
         list_of_square_dict.append(square_dict)
 
@@ -330,9 +355,6 @@ def check_result(objectfile):
     print_list_of_dict(result)
     return len(result)
 
-
-def readPlusMinusObject(objectfilename):
-    return read_object(objectfilename)
 
 
 def get_all_squares_as_rawlist(csvfile = datapath + 'PlusMinusDataSquares.csv'):
@@ -375,7 +397,7 @@ def find_square_numbers_in_page_in_rawlist(page, field, value, format = 0):
 
 
 def write_log(content, version):
-    logfile = datapath + "PlusMinus_Log_V_" + version + ".log"
+    logfile = logpath + "PlusMinus_Log_V_" + version + ".log"
     if type(content) != str:
         content = str(content)
     with open(logfile, mode='a') as targetfile:
@@ -385,16 +407,20 @@ def write_log(content, version):
 # =================== TESTING ======================
 
 # really execute now
-#print(execute_conversion('PlusMinusDataSquares.csv', 'PlusMinusDataSquaresObject'))
-#print(check_result('PlusMinusDataSquaresObject'))
+
+csv_source = datapath + 'PlusMinusDataSquares.csv'
+binary_targetfile = datapath + 'PlusMinusDataSquaresObject'
+print(execute_conversion(csv_source, binary_targetfile))
+print(check_result(binary_targetfile))
 
 # optionally read the objectfile only
 #print(readPlusMinusObject('PlusMinusDataSquaresObject'))
 
-result = open_plusminus_squares_rawlist(datapath+'PlusMinusDataSquares.csv')
-print(write_raw_list(datapath+'PlusMinusDataSquaresAsRawList', result))
-print(read_raw_square(result[0])) # toprow = header
-print(read_raw_square(result[len(result)-1])) # last row
+
+#result = open_plusminus_squares_rawlist(datapath+'PlusMinusDataSquares.csv')
+#print(write_raw_list(datapath+'PlusMinusDataSquaresAsRawList', result))
+#print(read_raw_square(result[0])) # toprow = header
+#print(read_raw_square(result[len(result)-1])) # last row
 
 # search for sample values
 #print(find_square_numbers_in_page_in_rawlist(6, "increase", 3))

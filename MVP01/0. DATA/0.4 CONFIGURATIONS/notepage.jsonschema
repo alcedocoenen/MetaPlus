@@ -1,0 +1,102 @@
+{
+    "title": "Notepage",
+    "type": "object",
+    "properties": {
+        "pageNumber": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 7
+        },
+        "refPitch": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 127
+        },
+        "mainNoteGroup": {
+            "type": "object",
+            "title": "Notegroup",
+            "properties": {
+                "noteGroupNumber": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 7
+                },
+                "chord": {
+                    "type": "object",
+                    "title": "Chord",
+                    "properties": {
+                        "note": {
+                            "type": "object",
+                            "title": "Note",
+                            "properties": {
+                                "pitch": {
+                                    "type": "integer",
+                                    "minimum": 1,
+                                    "maximum": 127
+                                },
+                                "accent": {
+                                    "type": "boolean"
+                                },
+                                "staccato": {
+                                    "type": "boolean"
+                                },
+                                "graceNote": {
+                                    "type": "object",
+                                    "title": "Gracenote",
+                                    "properties": {
+                                        "pitch": "integer",
+                                        "minimum": 1,
+                                        "maximum": 127
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+        },
+        "subsidiaryNoteGroup": {
+            "type": "object",
+            "title": "Subsidiary notes",
+            "properties": {
+                "subsidiaryNotegroupNumber": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 6
+                },
+                "note": {
+                    "type": "object",
+                    "title": "Note",
+                    "properties": {
+                        "pitch": {
+                            "type": "integer",
+                            "minimum": 1,
+                            "maximum": 127
+                        },
+                        "accent": {
+                            "type": "boolean"
+                        },
+                        "staccato": {
+                            "type": "boolean"
+                        },
+                        "graceNote": {
+                            "type": "object",
+                            "title": "Gracenote",
+                            "properties": {
+                                "pitch": "integer",
+                                "minimum": 1,
+                                "maximum": 127
+                            }
+
+                        }
+                    }
+                }
+
+
+            }
+        }
+
+    }
+}

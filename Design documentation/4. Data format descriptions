@@ -1,0 +1,29 @@
+# this files contains all format specifications
+
+# format 0:
+# csv square format is: PageNumber;
+#                       SequenceNumber;
+#                       SquareNumber;
+#                       Boldness;
+#                       Brackets;
+#                       Centralsound;
+#                       Duration;
+#                       Rest;
+#                       A-pre-bot;
+#                       A-pre-top;
+#                       A-cen-bot;
+#                       A-cen-top;
+#                       A-pos-bot;
+#                       A-pos-top;
+#                       NebennotenPosition;
+#                       NebennotenNumber;
+#                       NebennotenSpeed;
+#                       Flag.Top;
+#                       Flag.Bottom;
+#                       Coordination.Timing;
+#                       Coordination.Pitch;
+#                       Tendency.Increase;
+#                       Tendency.Decrease;
+#                       Effect;
+#                       Type
+

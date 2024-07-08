@@ -9,6 +9,35 @@
 # bracketfilling is OUT OF SCOPE here because it can only be handled after the squares are completely transformed into musical events.
 # BracketFilling: The brackets have to be filled with the right number of squares
 
+
+# format 0:
+# csv square format is: PageNumber;
+#                       SequenceNumber;
+#                       SquareNumber;
+#                       Boldness;
+#                       Brackets;
+#                       Centralsound;
+#                       Duration;
+#                       Rest;
+#                       A-pre-bot;
+#                       A-pre-top;
+#                       A-cen-bot;
+#                       A-cen-top;
+#                       A-pos-bot;
+#                       A-pos-top;
+#                       NebennotenPosition;
+#                       NebennotenNumber;
+#                       NebennotenSpeed;
+#                       Flag.Top;
+#                       Flag.Bottom;
+#                       Coordination.Timing;
+#                       Coordination.Pitch;
+#                       Tendency.Increase;
+#                       Tendency.Decrease;
+#                       Effect;
+#                       Type
+
+
 import Configurations as cf
 import ReadWriteSquares as rws
 import random
@@ -22,7 +51,7 @@ import time
 # for each layer:
 #       1. replace the tendency values 4 with increase or decrease
 #       2. substitute tendencies according to bottom page instructions
-# then write complete new object with layer number
+#       3. write all squares in proper order of pages
 
 
 def convert_stage0_to_stage0a(stage0_squares, version, choice = cf.config0a_a):
