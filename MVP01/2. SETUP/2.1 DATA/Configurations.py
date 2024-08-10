@@ -129,3 +129,79 @@ config2e = make_choices_for_tendency_substitutes() # not fixed, but changing eve
 
 def get_config2():
     return config2a
+
+
+# CONSTANTS FOR SEQUQNCES OF NOTES
+
+def get_accident_channel():
+    return 9
+
+def get_default_accident_volume():
+    return 100
+
+def get_default_accident_duration():
+    return 1
+
+def get_offset_sequence(moment):
+    offset = 0
+    if moment == "start" :
+        offset = 0
+    elif moment == "mid" :
+        offset = 4
+    elif moment == "end" :
+        offset = 8
+    return offset
+
+def get_accident_pitch(acc_type):
+    pitch = 60
+    if acc_type == "short":
+        pitch = 60
+    elif acc_type == "medium":
+        pitch = 61
+    elif acc_type == "long":
+        pitch = 62
+    return pitch
+
+def get_default_volume(sequence_type):
+    result = 100
+    if sequence_type == "cs":
+        result = 100
+    elif sequence_type == "acc":
+        result = 100
+    elif sequence_type == "subs":
+        result = 100
+    return result
+
+def get_default_duration(sequence_type):
+    result = 1
+    if sequence_type == "cs":
+        result = 2
+    elif sequence_type == "acc":
+        result = 2
+    elif sequence_type == "subs":
+        result = 0.5
+    return result
+
+def get_default_subs_timepoint_distance():
+    return 0.3
+def get_default_cs_offset():
+    return get_offset_sequence("mid")
+
+def get_default_cs_channel():
+    return 1
+
+def get_default_subs_channel():
+    return 2
+
+def get_accent_addition():
+    return 20
+
+def get_staccatao_duration(dur):
+    if dur > 0:
+        return dur/3
+    else:
+        return 0
+
+def get_gracenote_offset():
+    return -1
+
