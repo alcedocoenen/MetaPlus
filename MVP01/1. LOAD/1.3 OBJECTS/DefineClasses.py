@@ -320,6 +320,8 @@ class Square:
         else:
             timepoint = offset
 
+        # TODO if note[1] == 2:  # tremolo => twee noten van maken? twee noten bij elkaar nemen
+
         midi_note = [pitch, timepoint, duration, velocity, channel]
         return midi_note
 
@@ -331,6 +333,7 @@ class Square:
         #print(original_subs)
 
         # format: [a,b,c,d] => a = pitch, b = accent, c = staccato, d = gracenote
+        # TODO when b = 2 => tremolo
         # convert to [a,b,c,d,e] => a = pitch, b = timepoint, c = duration, d = velocity, en e = channel.
 
         subnotes = original_subs
