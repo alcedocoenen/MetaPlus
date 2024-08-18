@@ -1,4 +1,4 @@
-
+from typing import List, Any
 
 import Configurations as cf
 import PlusMinusNotepageChords as pmc
@@ -320,10 +320,33 @@ class Square:
         else:
             timepoint = offset
 
-        # TODO if note[1] == 2:  # tremolo => twee noten van maken? twee noten bij elkaar nemen
-
         midi_note = [pitch, timepoint, duration, velocity, channel]
         return midi_note
+
+    def make_tremolo(self, notes, offset, channel, sequence_type):
+        tremolo = []
+        # make a tremolo based on the list of (two) notes
+        # tremolo should be a list of notes of format [a,b,c,d,e]
+
+        default_volume = cf.get_default_volume(sequence_type)
+        default_duration = cf.get_default_duration(sequence_type)
+        default_shortest_duration = 0.1;
+        # assumed shortest time for a single note in a tremolo is 0.1
+        # the number of repetitions is then default_duration / shortest_duration
+
+        tremolo_repetitions: int = default_duration / default_shortest_duration
+
+        switch = False
+        for i in range(tremolo_repetitions):
+            if switch:
+                note = notes[0]
+            else:
+                note = notes[1]
+            switch = not (switch)
+            temp_note = self.make_note(note, offset, channel, sequence_type)
+            offset = offset + default_shortest_duration
+            tremolo.append(temp_note)
+        return tremolo
 
     def get_subs_notes(self, NotePageNumber, SubsidiariesNumber, offset, channel):
         melody = []
@@ -348,9 +371,23 @@ class Square:
                 timepoint = timepoint + default_timepoint_distance
             else:
                 # it is a chord
+                tremolo_counter = 0
+                tremolo = []
+                midi_notes: []
                 for note in group:
-                    midi_note = self.make_note(note, timepoint, channel, "subs")
-                    melody.append(midi_note)
+                    if note[1] == 2:  # it is a tremolo
+                        tremolo_counter = tremolo_counter + 1
+                        tremolo.append(note)
+                        if tremolo_counter > 1: # assumed that tremolos only occur with 2 notes
+                            midi_notes = self.make_tremolo(tremolo, timepoint, channel, "subs")
+                            # midi_notes is a list of notes in the target format [a,b,c,d,e]
+                            for tremolo_note in midi_notes:
+                                melody.append(tremolo_note)
+                            tremolo_counter = 0
+                            tremolo = []
+                    else: # it is not a tremolo
+                        midi_note = self.make_note(note, timepoint, channel, "subs")
+                        melody.append(midi_note)
                 timepoint = timepoint + default_timepoint_distance
 
         return melody
