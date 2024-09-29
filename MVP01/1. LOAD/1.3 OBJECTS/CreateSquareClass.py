@@ -412,34 +412,3 @@ class Square:
 
 
 
-# bij wijze van test een hele Square
-# neem square 40 van symbolpage 1
-# 1, 1,42,40,0,0,6,0,3,2,0,2,0,2,0,1,6,8,0,0,6,0,0,3,1,7
-# pas op: layernr toegevoegd als 1e nummer
-# square1_40 = Square(1, 1,42,40,0,0,6,0,3,2,0,2,0,2,0,1,6,8,0,0,6,0,0,3,1,7)
-square1_40 = Square(1, 1,42,40,0,0,6,0,3,0,0,2,0,2,3,1,6,8,0,0,6,0,0,3,1,7)
-
-square1_40.print_square()
-square1_40.set_notepagenr(1)
-
-seq = square1_40.make_sequence()
-print(f" accidents: {seq[0]}")
-print(f" central sound: {seq[1]}")
-print(f" subsidiaries {seq[2]}")
-
-#print(seq)
-
-'''
-for element in seq:
-    if type(element) is type([]):
-        for el in element:
-            print(el)
-    else:
-        print(element)
-'''
-
-# om de sequence te bepalen, moet
-# 1. eerst de configuratie worden opgehaald om de matchende notepage te vinden. Import Configurations.py, functie get_config1()
-# 2. de notepage moet worden opgehaald, aan de hand van de symbolpage
-# 3. de notepage moet worden geparsed om de chord en melody te bepalen
-
