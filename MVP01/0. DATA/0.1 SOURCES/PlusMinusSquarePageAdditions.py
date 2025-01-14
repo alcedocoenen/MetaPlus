@@ -1,8 +1,6 @@
 # data structures for additional instructions on the square pages
 # the data structures are made in plain python dictionary format
 
-import ReadWriteSquares as rwsq
-
 # =========== SQUARE SUBSTITUTIONS ==================
 # pas = page arrow statements
 # this refers to the arrows on top of each symbol page, meant to substitute squares that are in "brackets"

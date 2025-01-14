@@ -1,0 +1,96 @@
+/* style.css */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
+
+body {
+    font-family: 'Noto Sans', sans-serif;
+    margin: 0; /* Remove default body margins */
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    min-height: 100vh; /* Ensure full viewport height */
+    background-color: #f0f0f0; /* Light background */
+}
+
+.container {
+    width: 90%; /* Occupy 90% of the viewport width */
+    max-width: 1200px; /* Set a maximum width */
+    display: flex;
+    flex-direction: column;
+    height: 95vh;
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    background-color: white;
+}
+
+header, main, footer {
+    display: flex;
+    box-sizing: border-box; /* Include padding and border in element's total width and height */
+    border-bottom: 1px solid #ccc;
+}
+
+header {
+    flex: 1; /* Ratio 10% of the container height */
+    align-items: center; /* Vertically align items in header */
+    padding: 10px;
+}
+
+main {
+    flex: 4; /* Ratio 40% of the container height */
+    padding: 20px;
+}
+
+footer {
+    flex: 4; /* Ratio 40% of the container height */
+    padding: 20px;
+    border-bottom: none;
+}
+
+.logo {
+    flex: 1; /* Ratio 10% of the header width */
+    border: 1px solid black;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.title {
+    flex: 7; /* Ratio 70% of the header width */
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.breadcrumbs {
+    flex: 2; /* Ratio 20% of the header width */
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-content {
+    flex: 8; /* Ratio 80% of the main width */
+    border: 1px solid black;
+    padding: 10px;
+}
+
+.side-text-1, .side-text-2 {
+    flex: 2; /* Ratio 20% of the main/footer width */
+    border: 1px solid black;
+    padding: 10px;
+    text-align: left;
+}
+
+.secondary-content {
+    flex: 8; /* Ratio 80% of the footer width */
+    border: 1px solid black;
+    padding: 10px;
+}
+
+/* Remove border on last row of boxes */
+main > div:last-child, footer > div:last-child {
+    border-right: none;
+}

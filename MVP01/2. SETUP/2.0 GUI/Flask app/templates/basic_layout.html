@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meta-Plus</title>
+    <link rel="stylesheet" href="../static/basic_style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">Logo</div>
+            <div class="title">{% block title %}{% endblock %}</div>
+            <div class="breadcrumbs">{% block crumb %}{% endblock %}</div>
+        </header>
+        <main>
+            <div class="main-content">{% block content1 %}{% endblock %}</div>
+            <div class="side-text-1">{% block side1 %}{% endblock %}</div>
+        </main>
+        <footer>
+            <div class="secondary-content">{% block content2 %}{% endblock %}</div>
+            <div class="side-text-2">{% block side2 %}{% endblock %}</div>
+        </footer>
+    </div>
+</body>
+</html>

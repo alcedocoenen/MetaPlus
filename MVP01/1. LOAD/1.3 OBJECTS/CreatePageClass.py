@@ -6,9 +6,9 @@ from CreateSquareClass import Square
 @dataclass
 class Page:
     pagenr: int
-    symbolpagenr: int
-    changes: dict
-    exchange_instructions: dict
+    notepagenr: int
+    page_arrows_instructions: list
+    page_tendency_instructions: list
     empty_squares: list
     squares: List[Square]
 

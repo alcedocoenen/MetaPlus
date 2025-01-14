@@ -5,6 +5,8 @@ from typing import List
 from CreateLayerClass import Layer
 from CreatePageClass import Page
 from CreateSquareClass import Square
+from Configurations import *
+from PlusMinusSquarePageAdditions import *
 
 
 
@@ -25,9 +27,17 @@ class Piece:
         nr_pages = 7
         nr_squares = 4 # should be 52
         for n in range(nr_layers):
-            l = Layer(n+1,[],[],[])
+            # define page order
+            page_order = define_default_pageorder() # function to get the default order for this layer
+            # defined notepage order
+            notepage_order = define_default_pageorder() # function to get the default order for this layer
+            l = Layer(n+1,page_order,notepage_order,[])
             for m in range(nr_pages):
-                p = Page(m+1, 1, {}, {}, [], [])
+                pagenr = page_order[m]
+                notepagenr = notepage_order[m]
+                pas = page_arrow_statements[m] # source of the arrow statements, per page
+                pts = page_tendency_statements[m] # source of the tendency change statements, per page
+                p = Page(pagenr, notepagenr, pas, pts, [], [])
                 for o in range(nr_squares):
                     sq = Square(o+1, "")  # TODO dit moet aangepast worden
                     # TODO nadenken hoe we square-data eerst kunnen ophalen, dan square mee definieren

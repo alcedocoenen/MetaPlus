@@ -1,0 +1,61 @@
+{% extends "basic_layout.html" %}
+
+{% block title %}Realisations{% endblock %}
+
+{% block content1 %}
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Author</th>
+                <th>Version</th>
+                <th>Number of Layers</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for realisation in realisations %}
+            <tr>
+                <td>{{ realisation['id'] }}</td>
+                <td><a href="{{ url_for('realisations', id=realisation['id']) }}">{{ realisation['name'] }}</a></td>
+                <td>{{ realisation['author'] }}</td>
+                <td>{{ realisation['version'] }}</td>
+                <td>{{ realisation['number_of_layers'] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+ {% endblock %}
+
+
+{% block side1 %}
+{% endblock %}
+
+{% block side2 %}
+    <a href="{{ url_for('realisations', id=0) }}"><button>New</button></a>
+    <a href="{{ url_for('index') }}"><button>Back to Main</button></a>
+
+{% endblock %}
+
+{% block content2 %}
+    <form method="POST" action="{{ url_for('save_realisation') }}">
+        <input type="hidden" name="" value="{{ selected_realisation.id if selected_realisation else 0 }}">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" value="{{ selected_realisation.name if selected_realisation else '' }}"><br><br>
+
+        <label for="author">Author:</label><br>
+        <input type="text" id="author" name="author" value="{{ selected_realisation.author if selected_realisation else '' }}"><br><br>
+
+        <label for="version">Version:</label><br>
+        <input type="text" id="version" name="version" value="{{ selected_realisation.version if selected_realisation else '' }}"><br><br>
+
+        <label for="number_of_layers">id of Layers:</label><br>
+        <input type="number" id="number_of_layers" name="number_of_layers" value="{{ selected_realisation.number_of_layers if selected_realisation else 0 }}"><br><br>
+        <input type="submit" value="Save">
+    </form>
+
+{% endblock %}
+
+
+{% block crumb %}
+{% endblock %}

@@ -9,6 +9,7 @@ import random
 
 # ============== CONFIG 0a ====================
 # config 0a is about replacing the 4-tendencies with one of them
+# per layer
 # re: rule 20 in the instructions.
 
 config0a_a = "random once defined"
@@ -17,11 +18,14 @@ config0a_c = "increase"
 config0a_d = "decrease"
 
 def getconfig0():
+    # default is random per case
     return config0a_b
 
 #=============== CONFIG 1 =====================
 # Config1 is about the number of layers and the order or pages.
 
+# first part is used by functional approach, not object approach
+# ================ CONFIG1 1st PART ==================
 config1a = {
                 1:
                      {"layernr" : 1,
@@ -62,6 +66,7 @@ config1c = {
 }
 
 # TODO define a function for defining the config1 dynamically (random)
+
 # here is the main variable. Change this when choosing another configuration
 def get_config1():
     return config1a
@@ -70,10 +75,24 @@ def get_order_of_squarepages(layer):
 
 def get_order_of_notepages(layer):
     return get_config1()[layer]['order of notepages']
-
-
 def get_number_of_layers():
     return len(get_config1())
+
+
+# second part is used by object approach
+# ================ CONFIG1 2nd PART ==================
+
+def define_default_pageorder():
+    # default pageorder is 1 to 7
+    result = [1,2,3,4,5,6,7]
+    return result
+
+def define_random_pageorder():
+    result = [1,2,3,4,5,6,7]
+    random.shuffle(result)
+    return result
+
+
 
 #test
 #print(get_order_of_squarepages(1))
