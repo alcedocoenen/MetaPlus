@@ -89,6 +89,15 @@ footer {
     border: 1px solid black;
     padding: 10px;
 }
+.fieldset {
+  background-color: #eeeeee;
+}
+
+.legend {
+  background-color: gray;
+  color: white;
+  padding: 5px 10px;
+}
 
 /* Remove border on last row of boxes */
 main > div:last-child, footer > div:last-child {

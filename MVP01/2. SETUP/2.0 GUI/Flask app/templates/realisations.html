@@ -21,6 +21,7 @@
                 <td>{{ realisation['author'] }}</td>
                 <td>{{ realisation['version'] }}</td>
                 <td>{{ realisation['number_of_layers'] }}</td>
+                <td><a href="{{ url_for('configuration', realisation_number=realisation['id']) }}"><button>Config</button></a></td>
             </tr>
             {% endfor %}
         </tbody>
@@ -34,6 +35,7 @@
 {% block side2 %}
     <a href="{{ url_for('realisations', id=0) }}"><button>New</button></a>
     <a href="{{ url_for('index') }}"><button>Back to Main</button></a>
+    <a href="{{ url_for('realisations') }}"><button>Back to Realisations</button></a>
 
 {% endblock %}
 

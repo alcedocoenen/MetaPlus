@@ -1,9 +1,167 @@
-<!DOCTYPE html>
-<html>
-<link href="../static/mp_style.css" rel="stylesheet" type="text/css">
-<head><title>Configuration</title></head>
-<body>
-    <h1>Configuration for Realisation {{ number }}</h1>
-    <a href="{{ url_for('realisation_detail', number=number) }}"><button>Back</button></a>
-</body>
-</html>
+{% extends "basic_layout.html" %}
+
+{% block title %}Configuration{% endblock %}
+
+{% block content1 %}
+<h1>Configuration for Realisation: {{ realisation.name }}</h1>
+
+    <p><strong>Number:</strong> {{ realisation.id }}</p>
+    <p><strong>Name:</strong> {{ realisation.name }}</p>
+    <p><strong>Author:</strong> {{ realisation.author }}</p>
+    <p><strong>Version:</strong> {{ realisation.version }}</p>
+    <p><strong>Number of Layers:</strong> {{ realisation.number_of_layers }}</p>
+
+{% endblock %}
+
+{% block content2 %}
+    <h2>Configurations</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Layer</th>
+                <th>Name</th>
+                <th>Squarepages</th>
+                <th>Notepages</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for config in configurations %}
+            <tr>
+                <td>{{ config.layer_id }}</td>
+                <td><a href="{{ url_for('configuration', realisation_number=realisation['id'], layer_id=config.layer_id) }}">{{ config.name }}</a></td>
+                <td>{{ config.squarepages }}</td>
+                <td>{{ config.notepages }}</td>
+                <td><a href="{{ url_for('configuration', realisation_number=realisation['id'], layer_id=config['layer_id']) }}"><button>Config</button></a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+   <form method="POST">
+        <button type="submit" name="new_config">New Configuration</button>
+    </form>
+
+
+   <h2>Edit Configuration</h2>
+    <form method="POST">
+        <input type="hidden" name="layer_id" value="{{ selected_config.layer_id if selected_config else 0 }}">
+
+        <fieldset>
+            <legend>General:</legend>
+
+            <label for="name">name:</label><br>
+            <input type="text" id="name" name="name"><br><br>
+
+            <label for="squarepages">squarepages:</label><br>
+            <input type="text" id="squarepages" name="squarepages"><br><br>
+
+            <label for="notepages">notepages:</label><br>
+            <input type="text" id="notepages" name="notepages"><br><br>
+        </fieldset>
+
+        <fieldset>
+            <legend>General MIDI settings:</legend>
+            <label for="sequence_offset_start">sequence_offset_start:</label><br>
+            <input type="number" id="sequence_offset_start" name="sequence_offset_start"><br><br>
+
+            <label for="sequence_offset_mid">sequence_offset_mid:</label><br>
+            <input type="number" id="sequence_offset_mid" name="sequence_offset_mid"><br><br>
+
+            <label for="sequence_offset_end">sequence_offset_end:</label><br>
+            <input type="number" id="sequence_offset_end" name="sequence_offset_end"><br><br>
+
+            <label for="staccato_duration">staccato_duration:</label><br>
+            <input type="number" id="staccato_duration" name="staccato_duration"><br><br>
+
+            <label for="gracenote_offset">gracenote_offset:</label><br>
+            <input type="number" id="gracenote_offset" name="gracenote_offset"><br><br>
+
+        </fieldset>
+
+
+        <fieldset>
+            <legend>Central Sound settings:</legend>
+            <label for="cs_instrument">cs_instrument:</label><br>
+            <input type="text" id="cs_instrument" name="cs_instrument"><br><br>
+
+            <label for="cs_midi_channel">cs_midi_channel:</label><br>
+            <input type="number" id="cs_midi_channel" name="cs_midi_channel"><br><br>
+
+            <label for="cs_midi_instrument">cs_midi_instrument:</label><br>
+            <input type="number" id="cs_midi_instrument" name="cs_midi_instrument"><br><br>
+
+            <label for="cs_def_volume">cs_def_volume:</label><br>
+            <input type="number" id="cs_def_volume" name="cs_def_volume"><br><br>
+
+            <label for="cs_def_duration">cs_def_duration:</label><br>
+            <input type="number" id="cs_def_duration" name="cs_def_duration"><br><br>
+
+        </fieldset>
+
+        <fieldset>
+            <legend>Accessories settings:</legend>
+            <label for="acc_instrument">acc_instrument:</label><br>
+            <input type="text" id="acc_instrument" name="acc_instrument"><br><br>
+
+            <label for="acc_midi_channel">acc_midi_channel:</label><br>
+            <input type="number" id="acc_midi_channel" name="acc_midi_channel"><br><br>
+
+            <label for="acc_midi_instrument">acc_midi_instrument:</label><br>
+            <input type="number" id="acc_midi_instrument" name="acc_midi_instrument"><br><br>
+
+            <label for="acc_def_volume">acc_def_volume:</label><br>
+            <input type="number" id="acc_def_volume" name="acc_def_volume"><br><br>
+
+            <label for="acc_def_duration">acc_def_duration:</label><br>
+            <input type="number" id="acc_def_duration" name="acc_def_duration"><br><br>
+
+            <label for="acc_pitch_short">acc_pitch_short:</label><br>
+            <input type="number" id="acc_pitch_short" name="acc_pitch_short"><br><br>
+
+            <label for="acc_pitch_medium">acc_pitch_medium:</label><br>
+            <input type="number" id="acc_pitch_medium" name="acc_pitch_medium"><br><br>
+
+            <label for="acc_pitch_long">acc_pitch_long:</label><br>
+            <input type="number" id="acc_pitch_long" name="acc_pitch_long"><br><br>
+
+        </fieldset>
+
+        <fieldset>
+            <legend>Subsidiary Notes settings:</legend>
+            <label for="subs_instrument">subs_instrument:</label><br>
+            <input type="text" id="subs_instrument" name="subs_instrument"><br><br>
+
+            <label for="subs_midi_channel">subs_midi_channel:</label><br>
+            <input type="number" id="subs_midi_channel" name="subs_midi_channel"><br><br>
+
+            <label for="subs_midi_instrument">subs_midi_instrument:</label><br>
+            <input type="number" id="subs_midi_instrument" name="subs_midi_instrument"><br><br>
+
+            <label for="subs_def_volume">subs_def_volume:</label><br>
+            <input type="number" id="subs_def_volume" name="subs_def_volume"><br><br>
+
+            <label for="subs_def_duration">subs_def_duration:</label><br>
+            <input type="number" id="subs_def_duration" name="subs_def_duration"><br><br>
+
+            <label for="subs_timepoint_distance">subs_timepoint_distance:</label><br>
+            <input type="number" id="subs_timepoint_distance" name="subs_timepoint_distance"><br><br>
+
+        </fieldset>
+
+
+
+
+        <input type="submit" value="Add Configuration">
+    </form>
+
+
+{% endblock %}
+
+{% block side1 %}
+{% endblock %}
+
+{% block side2 %}
+    <a href="{{ url_for('realisations') }}"><button>Back to Realisations</button></a>
+{% endblock %}
+
+{% block crumb %}
+{% endblock %}
