@@ -5,6 +5,7 @@ class Config:
     def __init__(self, db_path):
         self.db_path = db_path
         self.conn = None
+        self.table_name = "Config_Layer"
 
     def _connect(self):
         try:
@@ -58,11 +59,25 @@ class Config:
                     )
                 """)
                 conn.commit()
-                print("Table 'config' created (or already exists).")
+                print(f"Table '{self.table_name}' created (or already exists).")
             except sqlite3.Error as e:
                 print(f"Error creating table: {e}")
             finally:
                 self._close()
+
+    def get_all(self):
+        conn = self._connect()
+        if conn:
+            try:
+                cursor = conn.cursor()
+                cursor.execute(f"SELECT * FROM {self.table_name}")
+                return cursor.fetchall()
+            except sqlite3.Error as e:
+                print(f"Error getting data: {e}")
+                return None
+            finally:
+                self._close()
+
 
     def insert(self, data):
         conn = self._connect()
@@ -104,7 +119,7 @@ class Config:
         if conn:
             try:
                 cursor = conn.cursor()
-                cursor.execute("SELECT * FROM config WHERE layer_id = ?", (layer_id,))
+                cursor.execute(f"SELECT * FROM {self.table_name} WHERE layer_id = ?", (layer_id,))
                 return cursor.fetchone()
             except sqlite3.Error as e:
                 print(f"Error getting data: {e}")
@@ -117,9 +132,7 @@ class Config:
         if conn:
             try:
                 cursor = conn.cursor()
-                conn.execute('SELECT * FROM main.Config_Layer WHERE ref_to_realisation = ?',
-                             (realisation_number,)).fetchall()
-                #cursor.execute("SELECT * FROM config WHERE realisation_number = ?", (realisation_number,))
+                conn.execute(f"SELECT * FROM {self.table_name} WHERE ref_to_realisation = ?", (realisation_number,))
                 return cursor.fetchone()
             except sqlite3.Error as e:
                 print(f"Error getting data: {e}")
@@ -133,7 +146,7 @@ class RealisationDB:  # class for realisation table
     def __init__(self, db_path):
         self.db_path = db_path
         self.conn = None
-        self.table_name = "realisations"
+        self.table_name = "Realisation"
 
     def _connect(self):  # same as in ConfigDB
         try:
