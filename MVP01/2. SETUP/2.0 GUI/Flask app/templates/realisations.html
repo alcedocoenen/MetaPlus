@@ -21,7 +21,8 @@
                 <td>{{ realisation['author'] }}</td>
                 <td>{{ realisation['version'] }}</td>
                 <td>{{ realisation['number_of_layers'] }}</td>
-                <td><a href="{{ url_for('configuration', realisation_number=realisation['id']) }}"><button>Config</button></a></td>
+                <td><a href="{{ url_for('configuration', realisation_number=realisation['id']) }}"><button>Configurations</button></a></td>
+                <td><a href="{{ url_for('delete_realisation', realisation_number=realisation['id'])}}"><button>Delete</button></a></td>
             </tr>
             {% endfor %}
         </tbody>
@@ -40,8 +41,11 @@
 {% endblock %}
 
 {% block content2 %}
+
+    <a href="{{ url_for('configuration', realisation_number=selected_realisation.id if selected_realisation else 0) }}"><button>Configurations</button></a>
+
     <form method="POST" action="{{ url_for('save_realisation') }}">
-        <input type="hidden" name="" value="{{ selected_realisation.id if selected_realisation else 0 }}">
+        <input type="hidden" name="id" value="{{ selected_realisation.id if selected_realisation else 0 }}">
         <label for="name">Name:</label><br>
         <input type="text" id="name" name="name" value="{{ selected_realisation.name if selected_realisation else '' }}"><br><br>
 
@@ -52,7 +56,8 @@
         <input type="text" id="version" name="version" value="{{ selected_realisation.version if selected_realisation else '' }}"><br><br>
 
         <label for="number_of_layers">id of Layers:</label><br>
-        <input type="number" id="number_of_layers" name="number_of_layers" value="{{ selected_realisation.number_of_layers if selected_realisation else 0 }}"><br><br>
+        <input type="number" id="number_of_layers" name="number_of_layers" min=1 max=7 value="{{ selected_realisation.number_of_layers if selected_realisation else 0 }}"><br><br>
+        <p style="font-size:11px"><label>maximum number of layers is 7, minimum is 1</label></p>
         <input type="submit" value="Save">
     </form>
 

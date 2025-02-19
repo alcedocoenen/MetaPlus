@@ -78,7 +78,6 @@ class Config:
             finally:
                 self._close()
 
-
     def insert(self, data):
         conn = self._connect()
         if conn:
@@ -86,7 +85,7 @@ class Config:
                 cursor = conn.cursor()
                 placeholders = ", ".join(["?"] * len(data))
                 columns = ", ".join(data.keys())
-                sql = f"INSERT INTO config ({columns}) VALUES ({placeholders})"
+                sql = f"INSERT INTO {self.table_name} ({columns}) VALUES ({placeholders})"
                 cursor.execute(sql, list(data.values()))
                 conn.commit()
                 return cursor.lastrowid  # return the ID of the last inserted row
@@ -102,7 +101,7 @@ class Config:
             try:
                 cursor = conn.cursor()
                 updates = ", ".join([f"{key} = ?" for key in data.keys()])
-                sql = f"UPDATE config SET {updates} WHERE layer_id = ?"
+                sql = f"UPDATE {self.table_name} SET {updates} WHERE layer_id = ?"
                 values = list(data.values())
                 values.append(layer_id)
                 cursor.execute(sql, values)
@@ -110,6 +109,23 @@ class Config:
                 return cursor.rowcount  # return the number of updated rows
             except sqlite3.Error as e:
                 print(f"Error updating data: {e}")
+                return None
+            finally:
+                self._close()
+
+
+    def delete(self, layer_id):
+        conn = self._connect()
+        if conn:
+            try:
+                cursor = conn.cursor()
+                sql = f"DELETE FROM {self.table_name} WHERE layer_id = ?"
+
+                cursor.execute(sql, (layer_id,))
+                conn.commit()
+                return cursor.rowcount  # return the number of deleted rows
+            except sqlite3.Error as e:
+                print(f"Error deleting data: {e}")
                 return None
             finally:
                 self._close()
@@ -132,14 +148,16 @@ class Config:
         if conn:
             try:
                 cursor = conn.cursor()
-                conn.execute(f"SELECT * FROM {self.table_name} WHERE ref_to_realisation = ?", (realisation_number,))
-                return cursor.fetchone()
+                realisation_string = str(realisation_number)
+                #sql_statement = "SELECT * FROM " + self.table_name + " WHERE ref_to_realisation = " + realisation_string
+                #cursor.execute(sql_statement)
+                cursor.execute(f"SELECT * FROM {self.table_name} WHERE ref_to_realisation = ?", (realisation_number,))
+                return cursor.fetchall()
             except sqlite3.Error as e:
                 print(f"Error getting data: {e}")
                 return None
             finally:
                 self._close()
-
 
 
 class RealisationDB:  # class for realisation table
@@ -169,7 +187,7 @@ class RealisationDB:  # class for realisation table
                 cursor = conn.cursor()
                 cursor.execute(f"""
                     CREATE TABLE IF NOT EXISTS {self.table_name} (
-                        number INTEGER PRIMARY KEY AUTOINCREMENT,
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
                         name TEXT NOT NULL,
                         author TEXT,
                         version TEXT,
@@ -201,7 +219,7 @@ class RealisationDB:  # class for realisation table
         if conn:
             try:
                 cursor = conn.cursor()
-                cursor.execute(f"SELECT * FROM {self.table_name} WHERE number = ?", (number,))
+                cursor.execute(f"SELECT * FROM {self.table_name} WHERE id = ?", (number,))
                 return cursor.fetchone()
             except sqlite3.Error as e:
                 print(f"Error getting data: {e}")
@@ -232,7 +250,7 @@ class RealisationDB:  # class for realisation table
             try:
                 cursor = conn.cursor()
                 updates = ", ".join([f"{key} = ?" for key in data.keys()])
-                sql = f"UPDATE {self.table_name} SET {updates} WHERE number = ?"
+                sql = f"UPDATE {self.table_name} SET {updates} WHERE id = ?"
                 values = list(data.values())
                 values.append(number)
                 cursor.execute(sql, values)
@@ -243,3 +261,21 @@ class RealisationDB:  # class for realisation table
                 return None
             finally:
                 self._close()
+
+    def delete(self, number):
+        conn = self._connect()
+        if conn:
+            try:
+                cursor = conn.cursor()
+                sql = f"DELETE FROM {self.table_name} WHERE id = ?"
+
+                cursor.execute(sql, (number,))
+                conn.commit()
+                return cursor.rowcount
+            except sqlite3.Error as e:
+                print(f"Error deleting data: {e}")
+                return None
+
+            finally:
+                self._close()
+
