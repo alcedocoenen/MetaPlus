@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, redirect, url_for
 import sqlite3
 import os
 from config import *
+from validations import *
 
 app = Flask(__name__)
 
@@ -140,7 +141,8 @@ def save_configuration(realisation_number):
     subs_def_duration = request.form['subs_def_duration']
     subs_timepoint_distance = request.form['subs_timepoint_distance']
 
-
+    squarepages = validated(squarepages)
+    notepages = validated(notepages)
 
     #TODO ook moet worden afgevangen dat er niet meer dan 7 lagen mogen zijn.
     data = {'name': name, 'squarepages': squarepages, 'notepages': notepages,
@@ -177,6 +179,15 @@ def delete_configuration(realisation_number, layer_id):
     conn.commit()
     conn.close()
     return redirect(url_for('configuration',realisation_number=realisation_number))
+
+@app.route('/pages/<int:realisation_number>/<int:layer_id>', methods=['GET','POST'])
+def pages(realisation_number, layer_id):
+    return render_template('pages.html')
+
+
+@app.route('/squares/<int:realisation_number>/<int:layer_id>/<int:page_id>', methods=['GET', 'POST'])
+def squares(realisation_number, layer_id, page_id):
+    return render_template('squares.html')
 
 
 if __name__ == '__main__':
