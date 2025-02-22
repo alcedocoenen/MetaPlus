@@ -6,28 +6,46 @@ def validated(pages):
 
     #first check if pages is a list or not
     # sample list
-    is_list = False
-    is_string = False
+    is_not_empty_list = False
+    is_string_of_numbers = False
     is_wrong = False
 
     if isinstance(pages,list):
-        is_list = True
+        # check if the list is empty
+        if len(pages) == 0:
+            is_wrong = True
+        else: is_not_empty_list = True
     elif isinstance(pages,str):
-        is_string = True
+        #filter out characters in the list
+        #pages = list(filter(lambda x: isinstance(x,int), pages))
+        temp_p = ""
+        for x in pages:
+            if x.isnumeric():
+                temp_p = temp_p + x
+        pages = temp_p
+
+        # check if the list is empty
+        if len(pages) == 0:
+            is_wrong = True
+        elif pages.isnumeric(): #exclude a string of characters which are not numbers
+            is_string_of_numbers = True
     else:
         is_wrong = True
 
     #if not a list but a string, then make a list
-    pages_list = []
-    if is_string:
+    if is_string_of_numbers:
+        pages_list = []
         for i in pages:
             j = int(i)
             pages_list.append(j)
         pages = pages_list
-        is_list = True
-        is_string = False
+        is_not_empty_list = True
 
-    if is_list:
+    if is_not_empty_list:
+
+
+
+
         #check the validity of numbers
         # if > 7 then replace by 7
         temp_list = list(map(lambda x: 7 if x > 7 else x, pages))
@@ -50,27 +68,31 @@ def validated(pages):
                 if x+1 not in pages:
                     pages.append(x+1)
 
+        # return a string
+        result = ""
+        for x in pages:
+            result = result + str(x)
+
+        pages = result
+
     if is_wrong:
-        pages = []
+        pages = "1234567"
 
-    #return a string
-    result = ""
-    for x in pages:
-        result = result + str(x)
 
-    pages = result
 
     return pages
 
 
 # some tests
-'''
-test1 = "6565432"
+
+test1 = "a5b8c3"
 test2 = [7,6,5,4,3]
 test3 = "9760162345"
 test4 = "351"
-test5 = 1.23
+test5 = 15.690
 test6 = "4521367"
+test7 = "abc"
+test8 = "6565432"
 
 print(validated(test1))
 print(validated(test2))
@@ -78,6 +100,8 @@ print(validated(test3))
 print(validated(test4))
 print(validated(test5))
 print(validated(test6))
+print(validated(test7))
+print(validated(test8))
 
-'''
+
 

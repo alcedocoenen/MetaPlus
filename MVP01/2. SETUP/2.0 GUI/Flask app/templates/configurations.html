@@ -3,146 +3,201 @@
 {% block title %}Configuration{% endblock %}
 
 {% block content1 %}
-<h1>Configuration for Realisation: {{ realisation.name }}</h1>
+<h1>{{ realisation.name }}</h1>
+<table style="width:100%">
+    <tr>
+            <td>
 
-    <p><strong>Number:</strong> {{ realisation.id }}</p>
-    <p><strong>Name:</strong> {{ realisation.name }}</p>
-    <p><strong>Author:</strong> {{ realisation.author }}</p>
-    <p><strong>Version:</strong> {{ realisation.version }}</p>
-    <p><strong>Number of Layers:</strong> {{ realisation.number_of_layers }}</p>
+                <p><strong>Number:</strong> {{ realisation.id }}</p>
+                <p><strong>Name:</strong> {{ realisation.name }}</p>
+                <p><strong>Author:</strong> {{ realisation.author }}</p>
+                <p><strong>Version:</strong> {{ realisation.version }}</p>
+                <p><strong>Number of Layers:</strong> {{ realisation.number_of_layers }}
+            </td>
+            <td></td>
+            <td></td>
+            <td style="vertical-align:top;">
+                <h2>Layers of {{ realisation.name }}</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Layer | </th>
+                            <th>Name | </th>
+                            <th>Squarepages | </th>
+                            <th>Notepages</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for Config_Layer in configurations %}
+                        <tr>
+                            <td>{{ Config_Layer['layer_id'] }}</td>
+                            <td><a href="{{ url_for('configuration', realisation_number=realisation['id'], layer_id=Config_Layer['layer_id']) }}">{{ Config_Layer['name'] }}</a></td>
+                            <td>{{ Config_Layer['squarepages'] }}</td>
+                            <td>{{ Config_Layer['notepages'] }}</td>
+                            <td><a href="{{ url_for('delete_configuration', realisation_number=realisation['id'], layer_id=Config_Layer['layer_id'])}}"><button>Delete</button></a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
 
+            </td>
+    </tr>
+</table>
 {% endblock %}
 
 {% block content2 %}
-    <h2>Configurations</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Layer | </th>
-                <th>Name | </th>
-                <th>Squarepages | </th>
-                <th>Notepages</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for Config_Layer in configurations %}
-            <tr>
-                <td>{{ Config_Layer['layer_id'] }}</td>
-                <td><a href="{{ url_for('configuration', realisation_number=realisation['id'], layer_id=Config_Layer['layer_id']) }}">{{ Config_Layer['name'] }}</a></td>
-                <td>{{ Config_Layer['squarepages'] }}</td>
-                <td>{{ Config_Layer['notepages'] }}</td>
-                <td><a href="{{ url_for('delete_configuration', realisation_number=realisation['id'], layer_id=Config_Layer['layer_id'])}}"><button>Delete</button></a></td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
 
-   <h2>Edit Configuration</h2>
+
+   <h2>Edit the configuration for {{ realisation.name }}, layer  {{ selected_config.layer_id }}</h2>
     <form method="POST" action="{{ url_for('save_configuration',realisation_number=realisation.id)}}">
         <input type="hidden" name="layer_id" value="{{ selected_config.layer_id if selected_config else 0 }}">
 
         <fieldset>
             <legend>General:</legend>
-
-            <label for="name">name:</label><br>
-            <input type="text" id="name" name="name" value="{{ selected_config.name if selected_config else '' }}"><br><br>
-
-            <label for="squarepages">squarepages:</label><br>
-            <input type="text" id="squarepages" name="squarepages" size="7" maxlength="7" value="{{ selected_config.squarepages if selected_config else squarepage_sequence }}"><br><br>
-
-            <label for="notepages">notepages:</label><br>
-            <input type="text" id="notepages" name="notepages" size="7" maxlength="7" value="{{ selected_config.notepages if selected_config else '' }}"><br><br>
+            <table>
+                <tr>
+                    <td>
+                        <label for="name">name:</label><br>
+                        <input type="text" id="name" name="name" value="{{ selected_config.name if selected_config else '' }}">
+                    </td>
+                    <td>
+                        <label for="squarepages">squarepages:</label><br>
+                        <input type="text" id="squarepages" name="squarepages" size="7" maxlength="7" value="{{ selected_config.squarepages if selected_config else squarepage_sequence }}">
+                    </td>
+                    <td>
+                        <label for="notepages">notepages:</label><br>
+                        <input type="text" id="notepages" name="notepages" size="7" maxlength="7" value="{{ selected_config.notepages if selected_config else '' }}">
+                    </td>
+                </tr>
+            </table>
         </fieldset>
-
+        <table>
+            <tr>
+                <td>
         <fieldset>
             <legend>General MIDI settings:</legend>
-            <label for="sequence_offset_start">sequence_offset_start:</label><br>
-            <input type="number" id="sequence_offset_start" name="sequence_offset_start" value="{{ selected_config.sequence_offset_start if selected_config else '' }}"><br><br>
+            <table>
+                <tr>
+                    <td><label for="sequence_offset_start">sequence_offset_start:</label></td>
+                    <td><input type="number" id="sequence_offset_start" name="sequence_offset_start" value="{{ selected_config.sequence_offset_start if selected_config else '' }}"></td>
+                </tr>
+                <tr>
+                    <td><label for="sequence_offset_mid">sequence_offset_mid:</label></td>
+                    <td><input type="number" id="sequence_offset_mid" name="sequence_offset_mid" value="{{ selected_config.sequence_offset_mid if selected_config else '' }}"></td>
+                </tr>
+                <tr>
+                    <td><label for="sequence_offset_end">sequence_offset_end:</label></td>
+                    <td><input type="number" id="sequence_offset_end" name="sequence_offset_end" value="{{ selected_config.sequence_offset_end if selected_config else '' }}"></td>
+                </tr>
+                <tr>
+                    <td><label for="staccato_duration">staccato_duration:</label></td>
+                    <td><input type="number" id="staccato_duration" name="staccato_duration" value="{{ selected_config.staccato_duration if selected_config else '' }}"></td>
+                </tr>
+                <tr>
+                    <td><label for="gracenote_offset">gracenote_offset:</label></td>
+                    <td><input type="number" id="gracenote_offset" name="gracenote_offset" value="{{ selected_config.gracenote_offset if selected_config else '' }}"></td>
+                </tr>
 
-            <label for="sequence_offset_mid">sequence_offset_mid:</label><br>
-            <input type="number" id="sequence_offset_mid" name="sequence_offset_mid" value="{{ selected_config.sequence_offset_mid if selected_config else '' }}"><br><br>
-
-            <label for="sequence_offset_end">sequence_offset_end:</label><br>
-            <input type="number" id="sequence_offset_end" name="sequence_offset_end" value="{{ selected_config.sequence_offset_end if selected_config else '' }}"><br><br>
-
-            <label for="staccato_duration">staccato_duration:</label><br>
-            <input type="number" id="staccato_duration" name="staccato_duration" value="{{ selected_config.staccato_duration if selected_config else '' }}"><br><br>
-
-            <label for="gracenote_offset">gracenote_offset:</label><br>
-            <input type="number" id="gracenote_offset" name="gracenote_offset" value="{{ selected_config.gracenote_offset if selected_config else '' }}"><br><br>
-
-        </fieldset>
+            </table>
+        </fieldset></td>
 
 
-        <fieldset>
+        <td><fieldset>
             <legend>Central Sound settings:</legend>
-            <label for="cs_instrument">cs_instrument:</label><br>
-            <input type="text" id="cs_instrument" name="cs_instrument" value="{{ selected_config.cs_instrument if selected_config else '' }}"><br><br>
-
-            <label for="cs_midi_channel">cs_midi_channel:</label><br>
-            <input type="number" id="cs_midi_channel" name="cs_midi_channel" min=1 max=16 value="{{ selected_config.cs_midi_channel if selected_config else '' }}"><br><br>
-
-            <label for="cs_midi_instrument">cs_midi_instrument:</label><br>
-            <input type="number" id="cs_midi_instrument" name="cs_midi_instrument" value="{{ selected_config.cs_midi_instrument if selected_config else '' }}"><br><br>
-
-            <label for="cs_def_volume">cs_def_volume:</label><br>
-            <input type="number" id="cs_def_volume" name="cs_def_volume" min=1 max=127 value="{{ selected_config.cs_def_volume if selected_config else '' }}"><br><br>
-
-            <label for="cs_def_duration">cs_def_duration:</label><br>
-            <input type="number" id="cs_def_duration" name="cs_def_duration" value="{{ selected_config.cs_def_duration if selected_config else '' }}"><br><br>
-
-        </fieldset>
-
-        <fieldset>
+            <table>
+                <tr>
+                    <td><label for="cs_instrument">instrument:</label></td>
+                    <td><input type="text" id="cs_instrument" name="cs_instrument" value="{{ selected_config.cs_instrument if selected_config else '' }}"></td>
+                </tr>
+                <tr>
+                    <td><label for="cs_midi_channel">midi channel:</label></td>
+                    <td><input type="number" id="cs_midi_channel" name="cs_midi_channel" min=1 max=16 value="{{ selected_config.cs_midi_channel if selected_config else '' }}"></td>
+                </tr>
+                <tr>
+                    <td><label for="cs_midi_instrument">midi instrument:</label></td>
+                    <td><input type="number" id="cs_midi_instrument" name="cs_midi_instrument" value="{{ selected_config.cs_midi_instrument if selected_config else '' }}"></td>
+                </tr>
+                <tr>
+                    <td><label for="cs_def_volume">default volume:</label></td>
+                    <td><input type="number" id="cs_def_volume" name="cs_def_volume" min=1 max=127 value="{{ selected_config.cs_def_volume if selected_config else '' }}"></td>
+                </tr>
+                <tr>
+                    <td><label for="cs_def_duration">default duration:</label></td>
+                    <td><input type="number" id="cs_def_duration" name="cs_def_duration" value="{{ selected_config.cs_def_duration if selected_config else '' }}"></td>
+            </table>
+        </fieldset></td>
+    </tr>
+            <tr>
+        <td><fieldset>
             <legend>Accessories settings:</legend>
-            <label for="acc_instrument">acc_instrument:</label><br>
-            <input type="text" id="acc_instrument" name="acc_instrument" value="{{ selected_config.acc_instrument if selected_config else '' }}"><br><br>
+            <table>
+                <tr>
+                    <td><label for="acc_instrument">instrument:</label></td>
+                    <td><input type="text" id="acc_instrument" name="acc_instrument" value="{{ selected_config.acc_instrument if selected_config else '' }}"></td>
+                </tr>
+                <tr>
+                    <td><label for="acc_midi_channel">midi channel:</label></td>
+                    <td><input type="number" id="acc_midi_channel" name="acc_midi_channel" min=1 max=16 value="{{ selected_config.acc_midi_channel if selected_config else '' }}"></td>
+                </tr>
+                <tr>
+                    <td><label for="acc_midi_instrument">midi instrument:</label></td>
+                    <td><input type="number" id="acc_midi_instrument" name="acc_midi_instrument" value="{{ selected_config.acc_midi_instrument if selected_config else '' }}"></td>
+                </tr>
+                <tr>
+                    <td><label for="acc_def_volume">default volume:</label></td>
+                    <td><input type="number" id="acc_def_volume" name="acc_def_volume" min=1 max=127 value="{{ selected_config.acc_def_volume if selected_config else '' }}"></td>
+                </tr>
+                <tr>
+                    <td><label for="acc_def_duration">default duration:</label></td>
+                    <td><input type="number" id="acc_def_duration" name="acc_def_duration" value="{{ selected_config.acc_def_duration if selected_config else '' }}"></td>
+                </tr>
+                <tr>
+                    <td><label for="acc_pitch_short">pitch short:</label></td>
+                    <td><input type="number" id="acc_pitch_short" name="acc_pitch_short" min=1 max=127 value="{{ selected_config.acc_pitch_short if selected_config else '' }}"></td>
+                </tr>
+                <tr>
+                    <td><label for="acc_pitch_medium">pitch medium:</label></td>
+                    <td><input type="number" id="acc_pitch_medium" name="acc_pitch_medium" min=1 max=127 value="{{ selected_config.acc_pitch_medium if selected_config else '' }}"></td>
+                </tr>
+                <tr>
+                    <td><label for="acc_pitch_long">pitch long:</label></td>
+                    <td><input type="number" id="acc_pitch_long" name="acc_pitch_long" min=1 max=127 value="{{ selected_config.acc_pitch_long if selected_config else '' }}"></td>
+                </tr>
+            </table>
+        </fieldset></td>
 
-            <label for="acc_midi_channel">acc_midi_channel:</label><br>
-            <input type="number" id="acc_midi_channel" name="acc_midi_channel" min=1 max=16 value="{{ selected_config.acc_midi_channel if selected_config else '' }}"><br><br>
-
-            <label for="acc_midi_instrument">acc_midi_instrument:</label><br>
-            <input type="number" id="acc_midi_instrument" name="acc_midi_instrument" value="{{ selected_config.acc_midi_instrument if selected_config else '' }}"><br><br>
-
-            <label for="acc_def_volume">acc_def_volume:</label><br>
-            <input type="number" id="acc_def_volume" name="acc_def_volume" min=1 max=127 value="{{ selected_config.acc_def_volume if selected_config else '' }}"><br><br>
-
-            <label for="acc_def_duration">acc_def_duration:</label><br>
-            <input type="number" id="acc_def_duration" name="acc_def_duration" value="{{ selected_config.acc_def_duration if selected_config else '' }}"><br><br>
-
-            <label for="acc_pitch_short">acc_pitch_short:</label><br>
-            <input type="number" id="acc_pitch_short" name="acc_pitch_short" min=1 max=127 value="{{ selected_config.acc_pitch_short if selected_config else '' }}"><br><br>
-
-            <label for="acc_pitch_medium">acc_pitch_medium:</label><br>
-            <input type="number" id="acc_pitch_medium" name="acc_pitch_medium" min=1 max=127 value="{{ selected_config.acc_pitch_medium if selected_config else '' }}"><br><br>
-
-            <label for="acc_pitch_long">acc_pitch_long:</label><br>
-            <input type="number" id="acc_pitch_long" name="acc_pitch_long" min=1 max=127 value="{{ selected_config.acc_pitch_long if selected_config else '' }}"><br><br>
-
-        </fieldset>
-
-        <fieldset>
+        <td style="vertical-align:top;"><fieldset>
             <legend>Subsidiary Notes settings:</legend>
-            <label for="subs_instrument">subs_instrument:</label><br>
-            <input type="text" id="subs_instrument" name="subs_instrument" value="{{ selected_config.subs_instrument if selected_config else '' }}"><br><br>
+            <table>
+                <tr>
+                    <td><label for="subs_instrument">instrument:</label></td>
+                    <td><input type="text" id="subs_instrument" name="subs_instrument" value="{{ selected_config.subs_instrument if selected_config else '' }}"></td>
+                </tr>
+                <tr>
+                    <td><label for="subs_midi_channel">midi channel:</label></td>
+                    <td><input type="number" id="subs_midi_channel" name="subs_midi_channel" min=1 max=16 value="{{ selected_config.subs_midi_channel if selected_config else '' }}"></td>
+                </tr>
+                <tr>
+                    <td><label for="subs_midi_instrument">midi instrument:</label></td>
+                    <td><input type="number" id="subs_midi_instrument" name="subs_midi_instrument" value="{{ selected_config.subs_midi_instrument if selected_config else '' }}"></td>
+                </tr>
+                <tr>
+                    <td><label for="subs_def_volume">default volume:</label></td>
+                    <td><input type="number" id="subs_def_volume" name="subs_def_volume" min=1 max=127 value="{{ selected_config.subs_def_volume if selected_config else '' }}"></td>
+                </tr>
+                <tr>
+                    <td><label for="subs_def_duration">default duration:</label></td>
+                    <td><input type="number" id="subs_def_duration" name="subs_def_duration" value="{{ selected_config.subs_def_duration if selected_config else '' }}"></td>
+                </tr>
+                <tr>
+                    <td><label for="subs_timepoint_distance">timepoint distance:</label></td>
+                    <td><input type="number" id="subs_timepoint_distance" name="subs_timepoint_distance" value="{{ selected_config.sequence_offset_start if selected_config else '' }}"></td>
+            </table>
 
-            <label for="subs_midi_channel">subs_midi_channel:</label><br>
-            <input type="number" id="subs_midi_channel" name="subs_midi_channel" min=1 max=16 value="{{ selected_config.subs_midi_channel if selected_config else '' }}"><br><br>
+        </fieldset></td>
+            </tr>
 
-            <label for="subs_midi_instrument">subs_midi_instrument:</label><br>
-            <input type="number" id="subs_midi_instrument" name="subs_midi_instrument" value="{{ selected_config.subs_midi_instrument if selected_config else '' }}"><br><br>
-
-            <label for="subs_def_volume">subs_def_volume:</label><br>
-            <input type="number" id="subs_def_volume" name="subs_def_volume" min=1 max=127 value="{{ selected_config.subs_def_volume if selected_config else '' }}"><br><br>
-
-            <label for="subs_def_duration">subs_def_duration:</label><br>
-            <input type="number" id="subs_def_duration" name="subs_def_duration" value="{{ selected_config.subs_def_duration if selected_config else '' }}"><br><br>
-
-            <label for="subs_timepoint_distance">subs_timepoint_distance:</label><br>
-            <input type="number" id="subs_timepoint_distance" name="subs_timepoint_distance" value="{{ selected_config.sequence_offset_start if selected_config else '' }}"><br><br>
-
-        </fieldset>
-
+        </table>
 
 
 

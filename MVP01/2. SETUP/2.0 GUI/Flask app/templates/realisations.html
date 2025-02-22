@@ -46,19 +46,28 @@
 
     <form method="POST" action="{{ url_for('save_realisation') }}">
         <input type="hidden" name="id" value="{{ selected_realisation.id if selected_realisation else 0 }}">
-        <label for="name">Name:</label><br>
-        <input type="text" id="name" name="name" value="{{ selected_realisation.name if selected_realisation else '' }}"><br><br>
+        <table>
+            <tr>
+                <td><label for="name">Name:</label></td>
+                <td><input type="text" id="name" name="name" value="{{ selected_realisation.name if selected_realisation else '' }}"></td>
+            </tr>
+            <tr>
+                <td><label for="author">Author:</label></td>
+                <td><input type="text" id="author" name="author" value="{{ selected_realisation.author if selected_realisation else '' }}"></td>
+            </tr>
+            <tr>
+                <td><label for="version">Version:</label></td>
+                <td><input type="text" id="version" name="version" value="{{ selected_realisation.version if selected_realisation else '' }}"></td>
+            </tr>
+            <tr>
+                <td><label for="number_of_layers">id of Layers:</label></td>
+                <td><input type="number" id="number_of_layers" name="number_of_layers" min=1 max=7 value="{{ selected_realisation.number_of_layers if selected_realisation else 0 }}"></td>
+            </tr>
 
-        <label for="author">Author:</label><br>
-        <input type="text" id="author" name="author" value="{{ selected_realisation.author if selected_realisation else '' }}"><br><br>
-
-        <label for="version">Version:</label><br>
-        <input type="text" id="version" name="version" value="{{ selected_realisation.version if selected_realisation else '' }}"><br><br>
-
-        <label for="number_of_layers">id of Layers:</label><br>
-        <input type="number" id="number_of_layers" name="number_of_layers" min=1 max=7 value="{{ selected_realisation.number_of_layers if selected_realisation else 0 }}"><br><br>
-        <p style="font-size:11px"><label>maximum number of layers is 7, minimum is 1</label></p>
+        </table>
         <input type="submit" value="Save">
+        <p style="font-size:11px"><label>maximum number of layers is 7, minimum is 1</label></p>
+
     </form>
 
 {% endblock %}
