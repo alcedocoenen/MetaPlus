@@ -84,7 +84,7 @@ def validated(pages):
 
 
 # some tests
-
+'''
 test1 = "a5b8c3"
 test2 = [7,6,5,4,3]
 test3 = "9760162345"
@@ -102,6 +102,6 @@ print(validated(test5))
 print(validated(test6))
 print(validated(test7))
 print(validated(test8))
-
+'''
 
 

@@ -148,7 +148,7 @@ class Config:
         if conn:
             try:
                 cursor = conn.cursor()
-                realisation_string = str(realisation_number)
+                #ealisation_string = str(realisation_number)
                 #sql_statement = "SELECT * FROM " + self.table_name + " WHERE ref_to_realisation = " + realisation_string
                 #cursor.execute(sql_statement)
                 cursor.execute(f"SELECT * FROM {self.table_name} WHERE ref_to_realisation = ?", (realisation_number,))
@@ -159,6 +159,18 @@ class Config:
             finally:
                 self._close()
 
+    def get_by_real_and_layer(self, realisation_number, layer_id):
+        conn = self._connect()
+        if conn:
+            try:
+                cursor = conn.cursor()
+                cursor.execute(f"SELECT * FROM {self.table_name} WHERE ref_to_realisation = ? AND layer_id = ?", (realisation_number, layer_id))
+                return cursor.fetchone()
+            except sqlite3.Error as e:
+                print(f"Error getting data: {e}")
+                return None
+            finally:
+                self._close()
 
 class RealisationDB:  # class for realisation table
     def __init__(self, db_path):

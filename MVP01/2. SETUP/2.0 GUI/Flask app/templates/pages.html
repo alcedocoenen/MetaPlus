@@ -4,17 +4,30 @@
 
 {% block content1 %}
 
-<h1>Configuration for Realisation: {{ realisation.name }}</h1>
+<h1>Pages for Layer {{ configuration.layer_id }} of Realisation: {{ realisation.name }}</h1>
+<table>
+    <tr>
+        <td>
+        <strong>Number:</strong> {{ realisation.id }}<br>
+        <strong>Name:</strong> {{ realisation.name }}<br>
+        <strong>Author:</strong> {{ realisation.author }}<br>
+        <strong>Version:</strong> {{ realisation.version }}<br>
+        </td>
+        <td></td>
+        <td>
+        <strong>Layer nr:</strong> {{ configuration.layer_id }}<br>
+        <strong>Layer name:</strong> {{ configuration.name }}<br>
+        <strong>Symbol pages order:</strong> {{ configuration.squarepages }}<br>
+        <strong>Note page order:</strong> {{ configuration.notepages }}<br>
+        </td>
+    </tr>
+</table>
 
-    <p><strong>Number:</strong> {{ realisation.id }}</p>
-    <p><strong>Name:</strong> {{ realisation.name }}</p>
-    <p><strong>Author:</strong> {{ realisation.author }}</p>
-    <p><strong>Version:</strong> {{ realisation.version }}</p>
-    <p><strong>Layer:</strong></p>p>
 
 {% endblock %}
 
 {% block content2 %}
+
 {% endblock %}
 
 {% block side1 %}
