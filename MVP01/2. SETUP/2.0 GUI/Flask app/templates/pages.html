@@ -77,27 +77,17 @@
     </tr>
 
     <tr>
+        {% set pict_base_url = "/static/Pages/notepage" %}
+        {% for nr in configuration.notepages  %}
         <td>
-            Notepage {{ configuration.notepages[0] }}
+            Notepage {{ nr }}
+            {% set pict_url = pict_base_url ~ nr %}
+            {% set pict_name = pict_url %}
+            {% set pict_tn_url = pict_url ~ "_tn.jpg" %}
+            {% set pict_url = pict_url ~ ".jpg" %}
+            <a href="{{ pict_url }}"><img src="{{ pict_tn_url }}" alt="{{ pict_name }}"></a>
         </td>
-        <td>
-            Notepage {{ configuration.notepages[1] }}
-        </td>
-        <td>
-            Notepage {{ configuration.notepages[2] }}
-        </td>
-        <td>
-            Notepage {{ configuration.notepages[3] }}
-        </td>
-        <td>
-            Notepage {{ configuration.notepages[4] }}
-        </td>
-        <td>
-            Notepage {{ configuration.notepages[5] }}
-        </td>
-        <td>
-            Notepage {{ configuration.notepages[6] }}
-        </td>
+        {% endfor %}
     </tr>
     <tr>
         <td>
