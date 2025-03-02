@@ -1,6 +1,8 @@
 {% extends "basic_layout.html" %}
 
-{% block title %}Pages{% endblock %}
+{#
+{% block title %}Pages{% endblock title %}
+#}
 
 {% block content1 %}
 
@@ -24,7 +26,7 @@
 </table>
 
 
-{% endblock %}
+{% endblock content1 %}
 
 {% block content2 %}
 <table class="pages_table">
@@ -38,27 +40,17 @@
         <td class="centered_column"><strong>7</strong></td>
     </tr>
     <tr>
+        {% set pict_base_url = "/static/Pages/symbolpage" %}
+        {% for nr in configuration.squarepages  %}
         <td>
-            Symbolpage {{ configuration.squarepages[0] }}
+            Symbolpage {{ nr }}
+            {% set pict_url = pict_base_url ~ nr %}
+            {% set pict_name = pict_url %}
+            {% set pict_tn_url = pict_url ~ "_tn.jpg" %}
+            {% set pict_url = pict_url ~ ".jpg" %}
+            <a href="{{ pict_url }}"><img src="{{ pict_tn_url }}" alt="{{ pict_name }}"></a>
         </td>
-        <td>
-            Symbolpage {{ configuration.squarepages[1] }}
-        </td>
-        <td>
-            Symbolpage {{ configuration.squarepages[2] }}
-        </td>
-        <td>
-            Symbolpage {{ configuration.squarepages[3] }}
-        </td>
-        <td>
-            Symbolpage {{ configuration.squarepages[4] }}
-        </td>
-        <td>
-            Symbolpage {{ configuration.squarepages[5] }}
-        </td>
-        <td>
-            Symbolpage {{ configuration.squarepages[6] }}
-        </td>
+        {% endfor %}
     </tr>
     <tr>
         <td>
@@ -155,7 +147,7 @@
     </tr>
 
 </table>
-{% endblock %}
+{% endblock content2 %}
 
 {% block side1 %}
 {% endblock %}
