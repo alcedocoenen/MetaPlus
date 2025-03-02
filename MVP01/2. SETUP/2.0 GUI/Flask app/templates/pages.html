@@ -1,8 +1,8 @@
 {% extends "basic_layout.html" %}
 
-{#
+
 {% block title %}Pages{% endblock title %}
-#}
+
 
 {% block content1 %}
 
@@ -40,14 +40,14 @@
         <td class="centered_column"><strong>7</strong></td>
     </tr>
     <tr>
-        {% set pict_base_url = "/static/Pages/symbolpage" %}
+        {% set pict_base_url = "/static/Pages/Symbolpage" %}
         {% for nr in configuration.squarepages  %}
         <td>
             Symbolpage {{ nr }}
             {% set pict_url = pict_base_url ~ nr %}
             {% set pict_name = pict_url %}
             {% set pict_tn_url = pict_url ~ "_tn.jpg" %}
-            {% set pict_url = pict_url ~ ".jpg" %}
+            {% set pict_url = pict_url ~ ".pdf" %}
             <a href="{{ pict_url }}"><img src="{{ pict_tn_url }}" alt="{{ pict_name }}"></a>
         </td>
         {% endfor %}
@@ -77,14 +77,14 @@
     </tr>
 
     <tr>
-        {% set pict_base_url = "/static/Pages/notepage" %}
+        {% set pict_base_url = "/static/Pages/Notepage" %}
         {% for nr in configuration.notepages  %}
         <td>
             Notepage {{ nr }}
             {% set pict_url = pict_base_url ~ nr %}
             {% set pict_name = pict_url %}
             {% set pict_tn_url = pict_url ~ "_tn.jpg" %}
-            {% set pict_url = pict_url ~ ".jpg" %}
+            {% set pict_url = pict_url ~ ".pdf" %}
             <a href="{{ pict_url }}"><img src="{{ pict_tn_url }}" alt="{{ pict_name }}"></a>
         </td>
         {% endfor %}

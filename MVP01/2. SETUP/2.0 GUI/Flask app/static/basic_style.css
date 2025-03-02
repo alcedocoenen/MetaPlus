@@ -48,7 +48,7 @@ footer {
 
 .logo {
     flex: 1; /* Ratio 10% of the header width */
-    border: 1px solid black;
+    border: 0px solid black;
     height: 100%;
     display: flex;
     justify-content: center;
