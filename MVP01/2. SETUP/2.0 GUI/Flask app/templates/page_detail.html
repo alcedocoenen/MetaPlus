@@ -1,0 +1,30 @@
+{% extends "basic_layout.html" %}
+
+{% block title %}Page Details{% endblock %}
+
+{% block content1 %}
+Symbolpage number: {{ symbolpagenr }} <br>
+Notepage number; {{ notepagenr }}
+{% endblock %}
+
+{% block content2 %}
+    {% set pict_base_url_symbolpage = "/static/Pages/Symbolpage" %}
+    {% set pict_base_url_notepage = "/static/Pages/Notepage" %}
+
+    {% set pict_url_symbolpage = pict_base_url_symbolpage ~ symbolpagenr ~ ".jpeg"  %}
+    {% set pict_url_notepage = pict_base_url_notepage ~ notepagenr ~ ".jpeg"  %}
+
+    <img width = 50% src="{{ pict_url_symbolpage }}"> <br>
+    <img width = 50% src="{{ pict_url_notepage }}"> <br>
+
+
+{% endblock %}
+
+{% block side1 %}
+{% endblock %}
+
+{% block side2 %}
+{% endblock %}
+
+{% block crumb %}
+{% endblock %}

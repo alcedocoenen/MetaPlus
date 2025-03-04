@@ -113,27 +113,16 @@
         </td>
     </tr>
     <tr>
+        {% for n in range(0, 7) %}
+        {% set nr_s = configuration.squarepages[n]  %}
+        {% set nr_n = configuration.notepages[n] %}
         <td>
-            buttons
+            <button>
+                <a href="{{ url_for('page_detail', symbolpagenr=nr_s, notepagenr=nr_n) }}">zoom in</a>
+            </button>
         </td>
-        <td>
-            buttons
-        </td>
-        <td>
-            buttons
-        </td>
-        <td>
-            buttons
-        </td>
-        <td>
-            buttons
-        </td>
-        <td>
-            buttons
-        </td>
-        <td>
-            buttons
-        </td>
+
+        {% endfor %}
     </tr>
 
 </table>

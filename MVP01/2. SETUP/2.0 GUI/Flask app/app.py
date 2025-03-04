@@ -199,5 +199,10 @@ def squares(realisation_number, layer_id, page_id):
     return render_template('squares.html',realisation=realisation_number, layer=layer_id, page=page_id)
 
 
+@app.route('/page_detail/<int:symbolpagenr>/<int:notepagenr>', methods=['GET', 'POST'])
+def page_detail(symbolpagenr, notepagenr):
+    return render_template('page_detail.html', symbolpagenr=symbolpagenr, notepagenr=notepagenr)
+
+
 if __name__ == '__main__':
     app.run(debug=True)
