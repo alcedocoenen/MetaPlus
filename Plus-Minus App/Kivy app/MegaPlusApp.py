@@ -19,7 +19,7 @@ LabelBase.register(name='Noto', fn_regular='NotoSans-Regular.ttf')
 
 class DatabaseManager:
     def __init__(self):
-        DATABASE = '/Users/alcedocoenen/Documents/Plus-Minus/Python/MetaPlus/MetaPlus/MVP01/2. SETUP/2.0 GUI/Config_database/configDB'
+        DATABASE = '/Users/alcedocoenen/Documents/Plus-Minus/Python/MetaPlus/MetaPlus/MVP01/2. SETUP/Plus-Minus App/2. Config_database/configDB'
         self.conn = sqlite3.connect(DATABASE)
         self.cursor = self.conn.cursor()
         self.create_tables()

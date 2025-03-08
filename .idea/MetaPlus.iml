@@ -2,12 +2,12 @@
 <module type="PYTHON_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/MVP01/1. LOAD/1.1 DATA" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/MVP01/1. LOAD/1.2 FUNCTIONS" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/MVP01/2. SETUP/2.1 DATA" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/MVP01/2. SETUP/2.2 FUNCTIONS" isTestSource="false" />
-      <excludeFolder url="file://$MODULE_DIR$/OBSOLETE" />
+      <sourceFolder url="file://$MODULE_DIR$/Plus-Minus App/3. Business Logic/3.1 DATA" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Plus-Minus App/3. Business Logic/3.2 FUNCTIONS" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/venv1" />
+      <excludeFolder url="file://$MODULE_DIR$/zzzOBSOLETE" />
+      <excludeFolder url="file://$MODULE_DIR$/zzzOBSOLETE/Operations/2.2 FUNCTIONS" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.13 (MetaPlus)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />

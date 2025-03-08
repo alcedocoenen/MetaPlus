@@ -7,8 +7,8 @@ import csv
 import pickle
 import PlusMinusIndexes as pm_index
 
-path_base = '/Users/alcedocoenen/Documents/Plus-Minus/Python/MetaPlus/MetaPlus/MVP01'
-datapath = path_base + '/0. DATA/0.1 SOURCES/'
+path_base = '/MVP01'
+datapath = path_base + '/0. DATA/0. Data Sources/'
 targetpath = path_base + '/0. DATA/0.2 RESULTS/'
 logpath = path_base + '/0. DATA/0.3 LOGS/'
 

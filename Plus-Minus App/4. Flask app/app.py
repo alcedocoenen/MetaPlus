@@ -8,7 +8,7 @@ from validations import *
 app = Flask(__name__)
 
 # Database setup (same as before)
-DATABASE = '/Users/alcedocoenen/Documents/Plus-Minus/Python/MetaPlus/MetaPlus/MVP01/2. SETUP/2.0 GUI/Config_database/configDB'
+DATABASE = '/Users/alcedocoenen/Documents/Plus-Minus/Python/MetaPlus/MetaPlus/MVP01/2. SETUP/Plus-Minus App/2. Config_database/configDB'
 
 realisation_db = RealisationDB(DATABASE)
 realisation_db.create_table()
