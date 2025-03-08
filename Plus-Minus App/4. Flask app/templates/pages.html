@@ -132,7 +132,10 @@
 {% endblock %}
 
 {% block side2 %}
-{% endblock %}
+    <a href="{{ url_for('index') }}"><button>Back to Main</button></a>
+    <a href="{{ url_for('realisations') }}"><button>Back to Realisations</button></a>
+    <a href="{{ url_for ('configuration', realisation_number=realisation['id']) }}"><button>Back to Configurations</button></a>
+  {% endblock %}
 
 {% block crumb %}
 {% endblock %}

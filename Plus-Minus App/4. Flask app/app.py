@@ -4,11 +4,12 @@ import sqlite3
 import os
 from config import *
 from validations import *
+import PlusMinusSquarePageAdditions
 
 app = Flask(__name__)
 
 # Database setup (same as before)
-DATABASE = '/Users/alcedocoenen/Documents/Plus-Minus/Python/MetaPlus/MetaPlus/MVP01/2. SETUP/Plus-Minus App/2. Config_database/configDB'
+DATABASE = '/Users/alcedocoenen/Documents/Plus-Minus/Python/MetaPlus/MetaPlus/Plus-Minus App/2. Config_database/configDB'
 
 realisation_db = RealisationDB(DATABASE)
 realisation_db.create_table()
@@ -201,6 +202,9 @@ def squares(realisation_number, layer_id, page_id):
 
 @app.route('/page_detail/<int:symbolpagenr>/<int:notepagenr>', methods=['GET', 'POST'])
 def page_detail(symbolpagenr, notepagenr):
+    # TODO get pts[x] from PlusMinusSquarePageAdditions.py
+    pts = PlusMinusSquarePageAdditions.page_tendency_statements[symbolpagenr]
+    # make the pts displayable info for the page
     return render_template('page_detail.html', symbolpagenr=symbolpagenr, notepagenr=notepagenr)
 
 

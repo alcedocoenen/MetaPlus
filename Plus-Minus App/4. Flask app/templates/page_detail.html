@@ -24,6 +24,12 @@ Notepage number; {{ notepagenr }}
 {% endblock %}
 
 {% block side2 %}
+   <a href="{{ url_for('index') }}"><button>Back to Main</button></a>
+    <a href="{{ url_for('realisations') }}"><button>Back to Realisations</button></a>
+{# TODO eerst nog zorgen dat deze variabelen worden meegegeven aan deze pagine
+<a href="{{ url_for('pages', realisation_number=realisation['id'], layer_id=Config_Layer['layer_id']) }}"><button>Back to Pages</button></a>
+#}
+
 {% endblock %}
 
 {% block crumb %}
