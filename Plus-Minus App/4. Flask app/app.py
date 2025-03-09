@@ -203,9 +203,9 @@ def squares(realisation_number, layer_id, page_id):
 @app.route('/page_detail/<int:symbolpagenr>/<int:notepagenr>', methods=['GET', 'POST'])
 def page_detail(symbolpagenr, notepagenr):
     # TODO get pts[x] from PlusMinusSquarePageAdditions.py
-    pts = PlusMinusSquarePageAdditions.page_tendency_statements[symbolpagenr]
+    pts = PlusMinusSquarePageAdditions.page_tendency_statements[symbolpagenr-1]
     # make the pts displayable info for the page
-    return render_template('page_detail.html', symbolpagenr=symbolpagenr, notepagenr=notepagenr)
+    return render_template('page_detail.html', symbolpagenr=symbolpagenr, notepagenr=notepagenr, pts=pts)
 
 
 if __name__ == '__main__':

@@ -109,6 +109,11 @@ footer {
 }
 .centered_column {text-align: center;}
 
+.page_image {
+            width: 400px;
+            object-fit: contain;
+        }
+
 /* Remove border on last row of boxes */
 main > div:last-child, footer > div:last-child {
     border-right: none;

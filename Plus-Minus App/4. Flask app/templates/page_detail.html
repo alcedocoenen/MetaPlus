@@ -13,9 +13,29 @@ Notepage number; {{ notepagenr }}
 
     {% set pict_url_symbolpage = pict_base_url_symbolpage ~ symbolpagenr ~ ".jpeg"  %}
     {% set pict_url_notepage = pict_base_url_notepage ~ notepagenr ~ ".jpeg"  %}
+<table>
+    <tr>
+        <td>
+            <img class = page_image src="{{ pict_url_symbolpage }}">
+        </td>
+        <td>
+            {% for n in range(1,54) %}
+            {{ n }}
+            {% endfor %}
+            <br>
+            {{ pts }}
+        </td>
+    </tr>
+    <tr>
+        <td>
+             <img class = page_image src="{{ pict_url_notepage }}">
+        </td>
+        <td>
 
-    <img width = 50% src="{{ pict_url_symbolpage }}"> <br>
-    <img width = 50% src="{{ pict_url_notepage }}"> <br>
+        </td>
+    </tr>
+</table>
+
 
 
 {% endblock %}
