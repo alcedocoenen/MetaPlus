@@ -1,7 +1,7 @@
 # main.py
 from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager, Screen
-from kivy.uix.treeview import TreeView, TreeViewNode
+from kivy.uix.treeview import TreeView, TreeViewNode, TreeViewLabel
 from kivy.uix.label import Label
 from kivy.uix.button import Button
 from kivy.uix.boxlayout import BoxLayout
@@ -19,7 +19,7 @@ LabelBase.register(name='Noto', fn_regular='NotoSans-Regular.ttf')
 
 class DatabaseManager:
     def __init__(self):
-        DATABASE = '/Users/alcedocoenen/Documents/Plus-Minus/Python/MetaPlus/MetaPlus/MVP01/2. SETUP/Plus-Minus App/2. Config_database/configDB'
+        DATABASE = '/Users/alcedocoenen/Documents/Plus-Minus/Python/MetaPlus/MetaPlus/Plus-Minus App/2. Config_database/configDB'
         self.conn = sqlite3.connect(DATABASE)
         self.cursor = self.conn.cursor()
         self.create_tables()
@@ -123,7 +123,7 @@ class StartScreen(Screen):
         self.tree.clear_widgets()
         self.db_manager.cursor.execute('SELECT * FROM realisation')
         for row in self.db_manager.cursor.fetchall():
-            node = self.tree.add_node(TreeViewNode(text=f'{row[0]}: {row[1]}'))
+            node = self.tree.add_node(TreeViewLabel(text=f'{row[0]}: {row[1]}'))
             node.bind(on_touch_down=partial(self.load_realisation_details, row))
 
     def load_realisation_details(self, row, instance, touch):
