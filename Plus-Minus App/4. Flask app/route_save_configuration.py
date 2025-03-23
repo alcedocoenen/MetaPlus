@@ -1,7 +1,7 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import request, redirect, url_for
 from __main__ import app
 from database_init import *
-
+from validations import *
 
 @app.route('/save_configuration/<int:realisation_number>', methods=['POST']) #New route for saving
 def save_configuration(realisation_number):

@@ -1,5 +1,5 @@
 # functions to gather input from user and write it to a config file in json format
-
+# TODO to determine if this file is still needed
 import json
 from numpy.random import seed
 from numpy.random import shuffle

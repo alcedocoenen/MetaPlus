@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 from __main__ import app
 from database_init import *
+import PlusMinusSquarePageAdditions
 
 
 @app.route('/page_detail/<int:symbolpagenr>/<int:notepagenr>', methods=['GET', 'POST'])

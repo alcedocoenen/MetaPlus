@@ -1,4 +1,4 @@
-# config.py
+# configurations.py
 # this file is meant to collect all setup and config parameters
 # instead of using a GUI for asking.
 # later this can be replaced by a genuine GUI that reads and writes confi files.

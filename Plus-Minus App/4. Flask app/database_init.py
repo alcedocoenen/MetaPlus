@@ -1,9 +1,13 @@
 
-
-from config import *
+import sqlite3
 import os
 
-# Database setup (same as before)
+from config_PageDB import Config_PageDB
+from config_realisationDB import RealisationDB
+from config_config import Config
+from config_squareDB import Config_SquareDB
+
+# Database setup
 DATABASE = '/Users/alcedocoenen/Documents/Plus-Minus/Python/MetaPlus/MetaPlus/Plus-Minus App/2. Config_database/configDB'
 
 realisation_db = RealisationDB(DATABASE)
