@@ -13,7 +13,7 @@ import route_delete_configuration
 import route_pages
 import route_squares
 import route_page_detail
-
+import route_square_detail
 
 
 
