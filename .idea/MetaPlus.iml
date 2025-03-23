@@ -5,6 +5,10 @@
       <sourceFolder url="file://$MODULE_DIR$/Plus-Minus App" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Plus-Minus App/0. Data Sources" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Plus-Minus App/3. Business Logic" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Plus-Minus App/3. Business Logic/3.2 FUNCTIONS" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Plus-Minus App/4. Flask app" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Plus-Minus App/4. Flask app/configs" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Plus-Minus App/4. Flask app/routes" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/venv1" />
       <excludeFolder url="file://$MODULE_DIR$/zzzOBSOLETE" />
     </content>
