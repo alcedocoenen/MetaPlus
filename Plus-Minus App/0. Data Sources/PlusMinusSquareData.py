@@ -447,3 +447,5 @@ square54 = [52,0,0,6,2,0,3,2,0,0,2,0,1,1,1,0,0,5,2,0,3,4,4]
 square55 = [53,1,0,2,2,0,2,0,1,2,0,0,3,6,14,0,0,5,2,0,2,4,6]
 
 symbolpage7 = [square1,square2,square3,square4,square5,square6,square7,square8,square9,square10,square11, square12,square13,square14,square15,square16,square17,square18,square19,square20,square21,square22,square23,square24,square25,square26,square27,square28,square29,square30,square31,square32,square33,square34,square35,square36,square37,square38,square39,square40,square41,square42,square43,square44,square45,square46,square47,square48,square49,square50,square51,square52,square53,square54,square55]
+
+symbolpages = [symbolpage1,symbolpage2,symbolpage3,symbolpage4,symbolpage5,symbolpage6,symbolpage7]

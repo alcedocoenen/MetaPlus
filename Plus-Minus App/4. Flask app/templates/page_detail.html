@@ -20,9 +20,10 @@ Notepage number; {{ notepagenr }}
         </td>
         <td>
             {% for n in range(1,54) %}
-            {{ n }}
+            <a href = "{{ url_for('square_detail', symbolpagenr=symbolpagenr, notepagenr=notepagenr, squarenr=n) }}">{{ n }}</a>
             {% endfor %}
             <br>
+
             {{ pts }}
         </td>
     </tr>

@@ -3,9 +3,17 @@
 {% block title %}Square Details{% endblock %}
 toedeloe
 {% block content1 %}
+symbolpagenr = {{ symbolpagenr }} <br>
+notepagenr = {{ notepagenr }} <br>
+squarenr = {{ squarenr }} <br>
 {% endblock %}
 
 {% block content2 %}
+square = {{ square }}<br>
+type = {{ notes[0] }}<br>
+substype = {{ notes[1] }}<br>
+chords = {{ notes[2] }}<br>
+subsnotes = {{ notes[3] }}
 {% endblock %}
 
 {% block side1 %}
